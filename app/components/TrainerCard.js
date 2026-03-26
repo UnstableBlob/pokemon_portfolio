@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { playSound } from '../utils/sound';
 import { trainerInfo } from '../utils/data';
 
@@ -24,7 +25,12 @@ export default function TrainerCard() {
         </div>
 
         <div className="trainer-card-wrapper">
-          <div className={`trainer-card ${flipped ? 'flipped' : ''}`} onClick={handleFlip}>
+          <motion.div 
+            className="trainer-card" 
+            onClick={handleFlip}
+            animate={{ rotateY: flipped ? 180 : 0 }}
+            transition={{ type: "spring", stiffness: 100, damping: 15 }}
+          >
             {/* FRONT */}
             <div className="card-face card-front">
               <div style={{ padding: 14 }}>
@@ -87,10 +93,22 @@ export default function TrainerCard() {
                   <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'var(--fr-dark-gray)', marginBottom: 6 }}>
                     BADGES
                   </div>
-                  <div className="badge-case">
+                  <motion.div 
+                    className="badge-case"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      hidden: { opacity: 0 },
+                      visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+                    }}
+                  >
                     {trainerInfo.badges.map((badge, i) => (
-                      <div
+                      <motion.div
                         key={i}
+                        variants={{
+                          hidden: { scale: 0 },
+                          visible: { scale: 1, transition: { type: "spring", stiffness: 300 } }
+                        }}
                         className={`badge-item ${!badge.earned ? 'unearned' : ''}`}
                         onMouseEnter={() => setHoveredBadge(i)}
                         onMouseLeave={() => setHoveredBadge(null)}
@@ -103,9 +121,9 @@ export default function TrainerCard() {
                             <div style={{ color: 'var(--fr-dark-gray)' }}>{badge.desc}</div>
                           </div>
                         )}
-                      </div>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -151,7 +169,7 @@ export default function TrainerCard() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

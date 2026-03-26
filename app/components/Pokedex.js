@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { playSound } from '../utils/sound';
 import { skills } from '../utils/data';
 
@@ -32,10 +33,25 @@ export default function Pokedex() {
         </div>
         <div className="pokedex-detail">
           <div className="pokedex-detail-header">
-            <div className="pokedex-sprite">
-              {selected.sprite}
-            </div>
-            <div className="pokedex-info">
+            <motion.div
+              className="pokedex-sprite"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            >
+              <motion.div
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+              >
+                {selected.sprite}
+              </motion.div>
+            </motion.div>
+            <motion.div
+              className="pokedex-info"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
               <div className="pokedex-info-name">
                 {selected.name}
                 {selected.shiny && <span className="shiny-star">★</span>}
@@ -48,27 +64,40 @@ export default function Pokedex() {
                 HT: {selected.height}<br />
                 WT: {selected.weight}
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="pokedex-flavor">
+          <motion.div
+            className="pokedex-flavor"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
             {selected.flavor}
-          </div>
+          </motion.div>
 
-          <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, marginBottom: 8, color: 'var(--fr-dark-gray)' }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, marginBottom: 8, color: 'var(--fr-dark-gray)' }}
+          >
             BASE STATS
-          </div>
+          </motion.div>
           <div className="stats-grid">
-            {Object.entries(selected.stats).map(([key, val]) => {
+            {Object.entries(selected.stats).map(([key, val], i) => {
               const labels = { hp: 'HP', atk: 'ATK', def: 'DEF', spAtk: 'SP.ATK', spDef: 'SP.DEF', speed: 'SPEED' };
               return (
                 <div className="stat-row" key={key}>
                   <span className="stat-label">{labels[key]}</span>
                   <span className="stat-value">{val}</span>
                   <div className="stat-bar-track">
-                    <div
+                    <motion.div
                       className="stat-bar-fill"
-                      style={{ width: `${val}%`, background: getStatColor(val) }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${val}%` }}
+                      transition={{ duration: 0.6, delay: 0.4 + (i * 0.1), type: "spring" }}
+                      style={{ background: getStatColor(val) }}
                     />
                   </div>
                 </div>
@@ -103,10 +132,27 @@ export default function Pokedex() {
         <span>SEEN: {skills.length}</span>
         <span>OWN: {skills.length}</span>
       </div>
-      <ul className="pokedex-list">
+      <motion.ul
+        className="pokedex-list"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05 }
+          }
+        }}
+      >
         {skills.map((skill) => (
-          <li
+          <motion.li
             key={skill.id}
+            variants={{
+              hidden: { opacity: 0, x: 20 },
+              visible: { opacity: 1, x: 0 }
+            }}
+            whileHover={{ scale: 1.02, x: -5, backgroundColor: 'rgba(0,0,0,0.06)' }}
+            whileTap={{ scale: 0.98 }}
             className="pokedex-entry"
             onClick={() => handleSelect(skill)}
           >
@@ -117,9 +163,9 @@ export default function Pokedex() {
               {skill.shiny && <span className="shiny-star">★</span>}
             </span>
             <span className={`type-badge type-${skill.type}`} style={{ fontSize: 6 }}>{skill.type}</span>
-          </li>
+          </motion.li>
         ))}
-      </ul>
+      </motion.ul>
     </div>
   );
 }

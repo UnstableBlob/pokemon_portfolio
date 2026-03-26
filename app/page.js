@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { playSound } from './utils/sound';
 import Pokedex from './components/Pokedex';
 import Pokemon from './components/Pokemon';
@@ -19,22 +20,9 @@ const menuItems = [
   { key: 'exit', label: 'EXIT', icon: '🚪' },
 ];
 
-function FlashScreen() {
-  const flash = document.getElementById('flash-overlay');
-  if (flash) {
-    flash.style.transition = 'none';
-    flash.style.opacity = '1';
-    requestAnimationFrame(() => {
-      flash.style.transition = 'opacity 0.35s ease';
-      flash.style.opacity = '0';
-    });
-  }
-}
-
 export default function Home() {
   const [activeMenu, setActiveMenu] = useState(0);
   const [activeSection, setActiveSection] = useState(null);
-  const [transitioning, setTransitioning] = useState(false);
   const [mobileView, setMobileView] = useState('menu'); // 'menu' or 'content'
   const contentRef = useRef(null);
 
@@ -88,7 +76,7 @@ export default function Home() {
           }
         }
       }
-    } catch {}
+    } catch { }
   }, []);
 
   const handleMenuSelect = useCallback((key) => {
@@ -100,17 +88,11 @@ export default function Home() {
     }
 
     playSound('confirm');
-    setTransitioning(true);
-    FlashScreen();
-
-    setTimeout(() => {
-      setActiveSection(key);
-      setMobileView('content');
-      setTransitioning(false);
-      if (contentRef.current) {
-        contentRef.current.scrollTop = 0;
-      }
-    }, 200);
+    setActiveSection(key);
+    setMobileView('content');
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
   }, []);
 
   const handleBack = useCallback(() => {
@@ -157,71 +139,92 @@ export default function Home() {
   };
 
   return (
-    <div className={`portfolio-shell ${mobileView === 'menu' ? 'menu-open' : 'content-open'}`}>
-      {/* World backdrop */}
-      <div className="world-backdrop scanlines" />
+    <div className="gba-wrapper">
+      <div className="gba-screen">
+        <div className={`portfolio-shell ${mobileView === 'menu' ? 'menu-open' : 'content-open'}`}>
+          {/* World backdrop */}
+          <div className="world-backdrop scanlines" />
 
-      {/* Menu panel */}
-      <div className="menu-panel">
-        <div className="menu-box fr-box fr-box-float">
-          {menuItems.map((item, idx) => (
-            <div
-              key={item.key}
-              className={`menu-item ${activeMenu === idx ? 'active' : ''}`}
-              onClick={() => {
-                setActiveMenu(idx);
-                handleMenuSelect(item.key);
-              }}
-              onMouseEnter={() => handleMenuHover(idx)}
+          {/* Menu panel */}
+          <div className="menu-panel">
+            <motion.div
+              className="menu-box fr-box fr-box-float"
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <span className="menu-cursor">▶</span>
-              <span>{item.label}</span>
-            </div>
-          ))}
+              {menuItems.map((item, idx) => (
+                <motion.div
+                  key={item.key}
+                  className={`menu-item ${activeMenu === idx ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveMenu(idx);
+                    handleMenuSelect(item.key);
+                  }}
+                  onMouseEnter={() => handleMenuHover(idx)}
+                  whileHover={{ scale: 1.02, x: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="menu-cursor">▶</span>
+                  <span>{item.label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Instructions */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              style={{
+                fontFamily: 'var(--font-pixel)',
+                fontSize: 7,
+                color: 'rgba(255,255,255,0.7)',
+                textAlign: 'center',
+                marginTop: 20,
+                lineHeight: 2,
+              }}
+            >
+              ↑↓ NAVIGATE &nbsp; ENTER SELECT<br />
+              ESC BACK
+            </motion.div>
+          </div>
+
+          {/* Content panel */}
+          <div className="content-panel" ref={contentRef}>
+            {/* Mobile back button */}
+            {activeSection && mobileView === 'content' && (
+              <button
+                className="back-btn"
+                onClick={handleBack}
+                style={{
+                  position: 'sticky',
+                  top: 0,
+                  background: 'var(--fr-cream)',
+                  zIndex: 10,
+                  borderBottom: '2px solid var(--fr-box-border)',
+                  width: '100%',
+                  display: 'none',
+                }}
+              >
+                ◀ MENU
+              </button>
+            )}
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSection || 'empty'}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2 }}
+                style={{ height: '100%' }}
+              >
+                {renderSection()}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-
-        {/* Walking sprite */}
-        <div className="walking-sprite">🚶</div>
-
-        {/* Instructions */}
-        <div style={{
-          fontFamily: 'var(--font-pixel)',
-          fontSize: 7,
-          color: 'rgba(255,255,255,0.3)',
-          textAlign: 'center',
-          marginTop: 20,
-          lineHeight: 2,
-        }}>
-          ↑↓ NAVIGATE &nbsp; ENTER SELECT<br />
-          ESC BACK
-        </div>
-      </div>
-
-      {/* Content panel */}
-      <div
-        className={`content-panel ${transitioning ? 'transition-iris' : ''}`}
-        ref={contentRef}
-      >
-        {/* Mobile back button */}
-        {activeSection && mobileView === 'content' && (
-          <button
-            className="back-btn"
-            onClick={handleBack}
-            style={{
-              position: 'sticky',
-              top: 0,
-              background: 'var(--fr-cream)',
-              zIndex: 10,
-              borderBottom: '2px solid var(--fr-box-border)',
-              width: '100%',
-              display: 'none',
-            }}
-          >
-            ◀ MENU
-          </button>
-        )}
-
-        {renderSection()}
       </div>
     </div>
   );

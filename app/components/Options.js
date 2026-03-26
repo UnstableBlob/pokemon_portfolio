@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { playSound, setSoundEnabled } from '../utils/sound';
 
 const frames = [
@@ -68,46 +69,60 @@ export default function Options({ onSettingsChange }) {
     <div>
       <div className="section-title">OPTION — SETTINGS</div>
 
-      <div style={{ padding: '8px 0' }}>
+      <motion.div 
+        style={{ padding: '8px 0' }}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+      >
         {/* TEXT SPEED */}
-        <div className="option-row">
+        <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }} className="option-row">
           <span className="option-label">TEXT SPEED</span>
           <div className="option-values">
             {['SLOW', 'MID', 'FAST'].map(val => (
-              <button
+              <motion.button
                 key={val}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`option-value ${textSpeed === val ? 'active' : ''}`}
                 onClick={() => handleTextSpeed(val)}
               >
                 {val}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* SOUND */}
-        <div className="option-row">
+        <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }} className="option-row">
           <span className="option-label">SOUND</span>
           <div className="option-values">
             {['ON', 'OFF'].map(val => (
-              <button
+              <motion.button
                 key={val}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`option-value ${sound === val ? 'active' : ''}`}
                 onClick={() => handleSound(val)}
               >
                 {val}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* FRAME */}
-        <div className="option-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
+        <motion.div variants={{ hidden: { opacity: 0, x: -20 }, visible: { opacity: 1, x: 0 } }} className="option-row" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 8 }}>
           <span className="option-label">FRAME</span>
           <div className="option-values" style={{ flexWrap: 'wrap' }}>
             {frames.map((f, i) => (
-              <button
+              <motion.button
                 key={i}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 className={`option-value ${frame === i ? 'active' : ''}`}
                 onClick={() => handleFrame(i)}
                 style={{
@@ -116,10 +131,10 @@ export default function Options({ onSettingsChange }) {
                 }}
               >
                 {f.name}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Credits */}
         <div style={{
@@ -136,7 +151,7 @@ export default function Options({ onSettingsChange }) {
           DESIGN INSPIRED BY GAME FREAK<br />
           © {new Date().getFullYear()} ATHAR
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
