@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/pokemon-firered-portfolio',
-  assetPrefix: '/pokemon-firered-portfolio',
+  basePath: '/pokemon_portfolio',
+  assetPrefix: '/pokemon_portfolio',
 };
 
 export default nextConfig;
