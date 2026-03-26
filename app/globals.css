@@ -36,6 +36,15 @@
   --type-dragon: #7038f8;
   --type-dark: #705848;
   --type-normal: #a8a878;
+  --type-steel: #b8b8d0;
+  --type-fairy: #ee99ac;
+  --type-fighting: #c03028;
+  --type-flying: #a890f0;
+  --type-poison: #a040a0;
+  --type-ground: #e0c068;
+  --type-bug: #a8b820;
+  --type-ice: #98d8d8;
+  --type-ghost: #705898;
   --type-frontend: #f08030;
   --type-backend: #6890f0;
   --type-fullstack: #7038f8;
@@ -138,6 +147,15 @@ html, body {
 .type-DRAGON { background: var(--type-dragon); }
 .type-DARK { background: var(--type-dark); }
 .type-NORMAL { background: var(--type-normal); }
+.type-STEEL { background: var(--type-steel); color: #383830; }
+.type-FAIRY { background: var(--type-fairy); }
+.type-FIGHTING { background: var(--type-fighting); }
+.type-FLYING { background: var(--type-flying); }
+.type-POISON { background: var(--type-poison); }
+.type-GROUND { background: var(--type-ground); color: #383830; }
+.type-BUG { background: var(--type-bug); }
+.type-ICE { background: var(--type-ice); color: #383830; }
+.type-GHOST { background: var(--type-ghost); }
 .type-FRONTEND { background: var(--type-frontend); }
 .type-BACKEND { background: var(--type-backend); }
 .type-FULLSTACK { background: var(--type-fullstack); }
@@ -845,18 +863,24 @@ html, body {
 .back-btn {
   font-family: var(--font-pixel);
   font-size: 8px;
-  background: none;
-  border: none;
-  color: var(--frame-accent);
+  background: rgba(0,0,0,0.35);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white;
   cursor: pointer;
-  padding: 8px 16px;
-  display: flex;
+  padding: 5px 12px;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  vertical-align: middle;
+  margin-right: 10px;
+  border-radius: 0;
+  line-height: 1;
 }
 
 .back-btn:hover {
-  color: var(--fr-black);
+  background: rgba(0,0,0,0.6);
+  border-color: rgba(255,255,255,0.6);
+  color: white;
 }
 
 /* ─── PROJECT DETAIL ─── */
@@ -985,14 +1009,45 @@ html, body {
 
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
+  /* Remove the fixed GBA viewport constraint on mobile */
+  html, body {
+    overflow: auto;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .gba-wrapper {
+    align-items: flex-start;
+    padding: 0;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .gba-screen {
+    aspect-ratio: unset;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
   .portfolio-shell {
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
   }
 
   .menu-panel {
     max-width: 100%;
     min-width: auto;
-    padding: 16px;
+    width: 100%;
+    padding: 12px 16px;
+    justify-content: flex-start;
+    order: 2; /* menu goes BELOW content area */
   }
 
   .menu-box {
@@ -1001,19 +1056,30 @@ html, body {
 
   .menu-item {
     font-size: 10px;
+    padding: 8px 14px;
   }
 
   .content-panel {
     border-left: none;
-    border-top: 4px solid var(--fr-box-border);
+    border-bottom: 4px solid var(--fr-box-border);
+    flex: 1;
+    order: 1; /* content goes ABOVE menu */
+    min-height: 50vh;
+    overflow-y: auto;
   }
 
+  /* Show/hide logic for mobile navigation */
   .portfolio-shell.menu-open .content-panel {
-    display: none;
+    min-height: 30vh;
   }
 
   .portfolio-shell.content-open .menu-panel {
-    display: none;
+    /* Keep menu visible but compact on mobile content view */
+    padding: 8px 16px;
+  }
+
+  .back-btn-mobile {
+    display: flex !important;
   }
 
   .party-grid {
@@ -1027,6 +1093,7 @@ html, body {
 
   .section-title {
     font-size: 10px;
+    padding: 14px 16px 10px;
   }
 
   .pokedex-entry,
@@ -1036,7 +1103,43 @@ html, body {
   }
 
   .trainer-card-wrapper {
-    max-width: 320px;
+    max-width: 100%;
+    margin: 16px auto;
+  }
+
+  .pokedex-detail {
+    padding: 12px;
+  }
+
+  .project-detail {
+    padding: 12px;
+  }
+
+  .pokedex-detail-header,
+  .project-detail-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .pokedex-sprite,
+  .project-sprite {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 8px;
+  }
+
+  .stat-label {
+    min-width: 48px;
+    font-size: 7px;
+  }
+
+  .save-dialog {
+    padding: 16px;
+  }
+
+  .fr-box {
+    padding: 12px 14px;
   }
 }
 

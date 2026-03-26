@@ -22,6 +22,7 @@ const menuItems = [
 
 export default function Home() {
   const [activeMenu, setActiveMenu] = useState(0);
+  const [hoveredMenu, setHoveredMenu] = useState(null); // separate hover tracking
   const [activeSection, setActiveSection] = useState(null);
   const [mobileView, setMobileView] = useState('menu'); // 'menu' or 'content'
   const contentRef = useRef(null);
@@ -83,12 +84,16 @@ export default function Home() {
     if (key === 'exit') {
       playSound('back');
       setActiveSection(null);
+      setActiveMenu(0);
       setMobileView('menu');
       return;
     }
 
     playSound('confirm');
     setActiveSection(key);
+    // Sync cursor to the selected item
+    const idx = menuItems.findIndex(m => m.key === key);
+    if (idx !== -1) setActiveMenu(idx);
     setMobileView('content');
     if (contentRef.current) {
       contentRef.current.scrollTop = 0;
@@ -101,8 +106,13 @@ export default function Home() {
     setMobileView('menu');
   }, []);
 
+  // Hover only updates the visual hover highlight, not the active cursor
   const handleMenuHover = useCallback((idx) => {
-    setActiveMenu(idx);
+    setHoveredMenu(idx);
+  }, []);
+
+  const handleMenuLeave = useCallback(() => {
+    setHoveredMenu(null);
   }, []);
 
   const renderSection = () => {
@@ -153,22 +163,26 @@ export default function Home() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              {menuItems.map((item, idx) => (
-                <motion.div
-                  key={item.key}
-                  className={`menu-item ${activeMenu === idx ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveMenu(idx);
-                    handleMenuSelect(item.key);
-                  }}
-                  onMouseEnter={() => handleMenuHover(idx)}
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="menu-cursor">▶</span>
-                  <span>{item.label}</span>
-                </motion.div>
-              ))}
+              {menuItems.map((item, idx) => {
+                // Show cursor on hovered item (if hovering), otherwise on the active section's item
+                const isActive = hoveredMenu !== null ? hoveredMenu === idx : activeMenu === idx;
+                return (
+                  <motion.div
+                    key={item.key}
+                    className={`menu-item ${isActive ? 'active' : ''}`}
+                    onClick={() => {
+                      handleMenuSelect(item.key);
+                    }}
+                    onMouseEnter={() => handleMenuHover(idx)}
+                    onMouseLeave={handleMenuLeave}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="menu-cursor">▶</span>
+                    <span>{item.label}</span>
+                  </motion.div>
+                );
+              })}
             </motion.div>
 
             {/* Instructions */}
@@ -192,19 +206,18 @@ export default function Home() {
 
           {/* Content panel */}
           <div className="content-panel" ref={contentRef}>
-            {/* Mobile back button */}
-            {activeSection && mobileView === 'content' && (
+            {/* Mobile back button — shown only on mobile (CSS handles display) */}
+            {activeSection && (
               <button
-                className="back-btn"
+                className="back-btn back-btn-mobile"
                 onClick={handleBack}
                 style={{
                   position: 'sticky',
                   top: 0,
-                  background: 'var(--fr-cream)',
                   zIndex: 10,
-                  borderBottom: '2px solid var(--fr-box-border)',
                   width: '100%',
-                  display: 'none',
+                  justifyContent: 'flex-start',
+                  display: 'none', // overridden to flex by CSS on mobile
                 }}
               >
                 ◀ MENU
