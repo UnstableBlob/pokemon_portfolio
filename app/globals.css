@@ -930,7 +930,6 @@ html, body {
   inset: 0;
   z-index: 0;
   opacity: 0.15;
-  background: url('/images/menu.png') center/cover no-repeat;
   image-rendering: pixelated;
   filter: blur(1px);
 }
