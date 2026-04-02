@@ -696,6 +696,14 @@ html, body {
   font-size: 16px;
 }
 
+.bag-item-ball-sprite {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
 .bag-item-name {
   flex: 1;
 }
@@ -1193,6 +1201,10 @@ html, body {
 .learning-item .bag-item-icon {
   animation: wiggle 1.5s ease-in-out infinite;
   display: inline-block;
+}
+
+.learning-item .bag-item-ball-sprite {
+  animation: wiggle 1.5s ease-in-out infinite;
 }
 
 /* ─── SCANLINES OVERLAY ─── */

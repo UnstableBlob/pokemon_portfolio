@@ -13,6 +13,17 @@ const pockets = [
   { key: 'berries', label: 'BERRIES', icon: '🫐', data: toolkit.berries },
 ];
 
+const BASE_PATH = '/pokemon_portfolio';
+
+const getBallSprite = (itemName = '') => {
+  if (itemName.startsWith('MASTER BALL')) return `${BASE_PATH}/sprites/masterball.png`;
+  if (itemName.startsWith('ULTRA BALL')) return `${BASE_PATH}/sprites/ultraball.png`;
+  if (itemName.startsWith('GREAT BALL')) return `${BASE_PATH}/sprites/greatball.png`;
+  if (itemName.startsWith('NET BALL')) return `${BASE_PATH}/sprites/netball.png`;
+  if (itemName.startsWith('TIMER BALL')) return `${BASE_PATH}/sprites/timerball.png`;
+  return `${BASE_PATH}/sprites/pokeball.png`;
+};
+
 export default function Bag() {
   const [activePocket, setActivePocket] = useState('items');
   const [selectedItem, setSelectedItem] = useState(null);
@@ -77,7 +88,16 @@ export default function Bag() {
             onMouseEnter={() => setHoveredItem(item)}
             onMouseLeave={() => setHoveredItem(null)}
           >
-            <span className="bag-item-icon">{pocket.icon}</span>
+            {activePocket === 'pokeBalls' ? (
+              <img
+                src={getBallSprite(item.name)}
+                alt={item.name}
+                className="bag-item-ball-sprite"
+                loading="lazy"
+              />
+            ) : (
+              <span className="bag-item-icon">{pocket.icon}</span>
+            )}
             <span className="bag-item-name">{item.name}</span>
             <span className="bag-item-qty">{item.qty}</span>
           </motion.div>

@@ -45,8 +45,26 @@ export const projects = [
     flavor: 'Developed a digital platform designed to bridge the gap between freelancers and Small & Medium Enterprises (SMEs). Enabled SMEs to boost their digital presence.'
   },
   {
-    name: 'AUDIO VISUALIZER',
-    species: '3D TERRAIN GEN',
+    name: 'SEMANTIC STRUCTURE GENERATOR',
+    species: 'GENERATIVE 3D ENV',
+    level: 52,
+    hp: { current: 168, max: 168 },
+    type: 'DRAGON',
+    type2: 'PSYCHIC',
+    status: 'OK',
+    held: 'REACT THREE FIBER + FLASK',
+    ot: 'ATHARVA',
+    idNo: '2027',
+    moves: [
+      { name: 'GEMINI ARCHITECT', type: 'PSYCHIC', pp: 'LLM Blueprint', power: 98 },
+      { name: 'JSON SCHEMA', type: 'STEEL', pp: 'Structured Data', power: 92 },
+      { name: 'REACT RENDER', type: 'ELECTRIC', pp: 'Real-time 3D', power: 95 },
+    ],
+    flavor: 'A generative 3D environment that transforms semantic text prompts into complex composite structures. Leverages Gemini 2.5 Flash to architect detailed blueprints of primitive parts assembled into tangible buildings.'
+  },
+  {
+    name: 'ECHO TERRAIN VISUALIZER',
+    species: '3D AUDIO TERRAIN',
     level: 50,
     hp: { current: 160, max: 160 },
     type: 'PSYCHIC',
@@ -56,11 +74,11 @@ export const projects = [
     ot: 'ATHARVA',
     idNo: '2026',
     moves: [
-      { name: 'FFT ANALYSIS', type: 'ELECTRIC', pp: 'Audio Input', power: 95 },
-      { name: 'TERRAIN MESH', type: 'GROUND', pp: 'Vertex Manip', power: 90 },
-      { name: 'VITE SERVE', type: 'FIRE', pp: 'Fast HMR', power: 85 },
+      { name: 'FFT ANALYSIS', type: 'ELECTRIC', pp: 'Frequency Bands', power: 96 },
+      { name: 'TERRAIN MESH', type: 'GROUND', pp: '14k+ Grid Points', power: 94 },
+      { name: 'WATER SHADER', type: 'WATER', pp: 'Cinematic Bowl', power: 90 },
     ],
-    flavor: 'An audio visualizer that generates dynamic 3D terrain according to the audio input. Uses Fast Fourier Transform for audio analysis and Three.js for rendering.'
+    flavor: 'A high-fidelity real-time 3D audio visualizer that transforms sound into a dynamic, shifting landscape. Extracts frequency data and maps it to a procedurally generated terrain with fluid animation and immersive stone bowl environment.'
   }
 ];
 
@@ -96,11 +114,32 @@ export const toolkit = {
     { name: 'UNYIELDING POSITIVITY', desc: 'Prevents the "Burnout" status condition, keeping morale high across the team.', qty: '★' },
   ],
   pokeBalls: [
-    { name: 'VITE BALL', desc: 'A blazing fast ball that skips the bundling phase to capture projects instantly.', qty: '15' },
-    { name: 'GIT BALL', desc: 'Commit-ready ball that tracks every version of the capture history.', qty: '24' },
-    { name: 'DOCKER BALL', desc: 'Wraps the target in a secure container, ensuring it runs the same on any OS.', qty: '8' },
-    { name: 'PRODUCTION BALL', desc: 'Guaranteed success, but only if you have the environment variables correctly configured.', qty: '1' },
-    { name: 'LEGACY BALL', desc: 'Specifically designed to handle unstable, ancient codebases from the 90s.', qty: '5' },
+    { name: 'POKE BALL - HTML/CSS/JS', desc: 'Tier 1 foundation stack for standard web interfaces and interaction logic.', qty: '99' },
+    { name: 'POKE BALL - REACT', desc: 'Tier 1 component architecture for scalable frontend development.', qty: '90' },
+    { name: 'POKE BALL - VITE', desc: 'Tier 1 lightning-fast development server and build pipeline.', qty: '80' },
+    { name: 'GREAT BALL - NEXT.JS', desc: 'Tier 2 full-stack React framework for SSR, routing, and production apps.', qty: '48' },
+    { name: 'GREAT BALL - TAILWIND CSS', desc: 'Tier 2 utility-first styling system for rapid UI composition.', qty: '45' },
+    { name: 'GREAT BALL - NES.CSS', desc: 'Tier 2 retro styling toolkit for pixel-perfect game-inspired UI.', qty: '30' },
+    { name: 'GREAT BALL - LEAFLET', desc: 'Tier 2 mapping library for interactive geospatial web views.', qty: '24' },
+    { name: 'ULTRA BALL - FRAMER MOTION', desc: 'Tier 3 animation framework for declarative UI motion and transitions.', qty: '32' },
+    { name: 'ULTRA BALL - GSAP', desc: 'Tier 3 timeline-grade animation engine for cinematic interaction sequences.', qty: '28' },
+    { name: 'ULTRA BALL - ANIME.JS', desc: 'Tier 3 lightweight animation library for micro-interactions and SVG motion.', qty: '26' },
+    { name: 'ULTRA BALL - THREE.JS', desc: 'Tier 3 WebGL framework powering interactive 3D scenes and effects.', qty: '34' },
+    { name: 'ULTRA BALL - REACT THREE FIBER', desc: 'Tier 3 React renderer that makes Three.js scenes component-driven.', qty: '22' },
+    { name: 'ULTRA BALL - DREI', desc: 'Tier 3 helper toolkit for controls, loaders, and reusable 3D utilities.', qty: '18' },
+    { name: 'TIMER BALL - NODE.JS', desc: 'Tier 3 JavaScript runtime for backend services and tooling.', qty: '40' },
+    { name: 'TIMER BALL - EXPRESS.JS', desc: 'Tier 3 backend framework for REST APIs and middleware pipelines.', qty: '34' },
+    { name: 'TIMER BALL - BUN', desc: 'Tier 3 high-performance JavaScript runtime and package manager.', qty: '20' },
+    { name: 'TIMER BALL - FLASK', desc: 'Tier 3 lightweight Python web framework for APIs and prototyping.', qty: '25' },
+    { name: 'TIMER BALL - FASTAPI', desc: 'Tier 3 modern Python API framework with strong typing and speed.', qty: '16' },
+    { name: 'NET BALL - NUMPY', desc: 'Tier 2 numerical computing core for vectors, matrices, and data pipelines.', qty: '50' },
+    { name: 'NET BALL - PANDAS', desc: 'Tier 2 dataframe toolkit for data wrangling and structured analysis.', qty: '42' },
+    { name: 'NET BALL - MATPLOTLIB', desc: 'Tier 2 plotting suite for scientific charts and diagnostics.', qty: '36' },
+    { name: 'NET BALL - VISPY', desc: 'Tier 2 high-performance interactive visualization leveraging GPU rendering.', qty: '14' },
+    { name: 'NET BALL - MANIM', desc: 'Tier 2 mathematical animation engine for explanatory and technical visuals.', qty: '12' },
+    { name: 'MASTER BALL - RUST', desc: 'Tier 4 systems language for memory-safe, high-performance modules.', qty: '6' },
+    { name: 'MASTER BALL - C++', desc: 'Tier 4 performance-critical language for graphics-heavy and low-level code.', qty: '5' },
+    { name: 'MASTER BALL - WEBASSEMBLY', desc: 'Tier 4 bridge for running near-native modules directly in the browser.', qty: '4' },
   ],
   tms: [
     { name: 'git commit -m', desc: 'Saves the current progress with a descriptive label.', qty: '∞' },
