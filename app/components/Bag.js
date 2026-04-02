@@ -64,7 +64,7 @@ export default function Bag() {
   return (
     <div className="bag-screen-container">
       <div className="bag-background">
-        
+
         {/* Pocket Title */}
         <div className="bag-pocket-title">
           {pocket.label}
@@ -85,12 +85,12 @@ export default function Bag() {
               const isSelected = selectedItem === item;
               const isHovered = hoveredItem === item;
               const showCursor = isSelected || (isHovered && !selectedItem);
-              
+
               const isPokeBallPocket = activePocket === 'pokeBalls';
-              const displayName = isPokeBallPocket 
-                ? item.name.split(' - ')[1] || item.name 
+              const displayName = isPokeBallPocket
+                ? item.name.split(' - ')[1] || item.name
                 : item.name;
-              
+
               return (
                 <li
                   key={i}
@@ -101,10 +101,10 @@ export default function Bag() {
                 >
                   <span className="bag-list-cursor" style={{ visibility: showCursor ? 'visible' : 'hidden' }}>▶</span>
                   {isPokeBallPocket && (
-                    <img 
-                      src={getBallSprite(item.name)} 
-                      alt="ball" 
-                      className="bag-list-item-sprite" 
+                    <img
+                      src={getBallSprite(item.name)}
+                      alt="ball"
+                      className="bag-list-item-sprite"
                     />
                   )}
                   <span className="bag-list-name">{displayName}</span>
@@ -136,7 +136,7 @@ export default function Bag() {
           <div className="bag-desc-text">
             {(hoveredItem || selectedItem)
               ? (hoveredItem || selectedItem).desc
-              : 'Select an item to see its description.'
+              : 'Select an item to see its description. Use the arrows to navigate.'
             }
           </div>
         </div>

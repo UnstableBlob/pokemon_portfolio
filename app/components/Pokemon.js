@@ -10,7 +10,7 @@ const typeIcons = {
   PSYCHIC: '🧠', ROCK: '🪨', DRAGON: '🐉', DARK: '⚫', NORMAL: '✨',
 };
 
-export default function Pokemon() {
+export default function Pokemon({ onClose }) {
   const [selected, setSelected] = useState(null);
   const [tab, setTab] = useState('info');
 
@@ -34,186 +34,209 @@ export default function Pokemon() {
 
   if (selected) {
     return (
-      <div>
-        <div className="section-title">
-          <button className="back-btn" onClick={handleBack}>◀ BACK</button>
-          POKéMON — {selected.name}
-        </div>
-        <div className="project-detail">
-          {/* Tab buttons */}
-          <div style={{ display: 'flex', gap: 4, marginBottom: 16 }}>
-            <button
-              className={`save-option ${tab === 'info' ? 'active' : ''}`}
-              onClick={() => { setTab('info'); playSound('cursor'); }}
-              style={{ fontSize: 8, fontFamily: 'var(--font-pixel)' }}
-            >INFO</button>
-            <button
-              className={`save-option ${tab === 'moves' ? 'active' : ''}`}
-              onClick={() => { setTab('moves'); playSound('cursor'); }}
-              style={{ fontSize: 8, fontFamily: 'var(--font-pixel)' }}
-            >MOVES</button>
+      <div className="pokemon-screen-wrapper">
+        <div className="pokemon-bg-layer">
+          <div style={{ padding: '4%', height: '75%' }}>
+            <div className="fr-box" style={{ background: '#60a8d8', border: '3px solid #405881', color: 'white', marginBottom: 12 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 12 }}>{selected.name}</span>
+                <span style={{ fontSize: 8 }}>Lv. {selected.level}</span>
+              </div>
+            </div>
+
+            <div className="project-detail" style={{ background: 'rgba(255,255,255,0.95)', padding: '10px 14px', border: '3px solid #405881', height: 'calc(100% - 45px)', overflow: 'hidden' }}>
+              {/* Tab buttons */}
+              <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                <button
+                  className={`nes-btn is-primary ${tab === 'info' ? 'active' : ''}`}
+                  onClick={() => { setTab('info'); playSound('cursor'); }}
+                  style={{ fontSize: 7, padding: '2px 8px' }}
+                >INFO</button>
+                <button
+                  className={`nes-btn is-success ${tab === 'moves' ? 'active' : ''}`}
+                  onClick={() => { setTab('moves'); playSound('cursor'); }}
+                  style={{ fontSize: 7, padding: '2px 8px' }}
+                >MOVES</button>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {tab === 'info' && (
+                  <motion.div
+                    key="info"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="project-info" style={{ color: '#303030' }}>
+                      <div style={{ marginBottom: 4, fontSize: 11, fontWeight: 'bold' }}>{selected.species}</div>
+                      <div style={{ marginBottom: 10 }}>
+                        <span className={`type-badge type-${selected.type}`} style={{ fontSize: 7, padding: '2px 5px' }}>{selected.type}</span>
+                        {selected.type2 && <span className={`type-badge type-${selected.type2}`} style={{ fontSize: 7, padding: '2px 5px', marginLeft: 6 }}>{selected.type2}</span>}
+                      </div>
+
+                      <div className="hp-bar-track" style={{ height: 6, marginBottom: 10 }}>
+                        <motion.div
+                          className={`hp-bar-fill ${getHpClass(selected.hp.current, selected.hp.max)}`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(selected.hp.current / selected.hp.max) * 100}%` }}
+                        />
+                      </div>
+
+                      <p style={{ fontSize: 9, lineHeight: 1.5, marginBottom: 10 }}>{selected.flavor}</p>
+                      
+                      <div style={{ marginBottom: 8 }}>
+                        <div style={{ color: '#585858', fontSize: 7, marginBottom: 3, textTransform: 'uppercase' }}>TECH:</div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                          {selected.tech?.map(t => (
+                            <span key={t} style={{ border: '1px solid #405881', padding: '1px 4px', fontSize: 6, borderRadius: 2, background: 'white' }}>{t}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div style={{ marginBottom: 8 }}>
+                        <div style={{ color: '#585858', fontSize: 7, marginBottom: 3, textTransform: 'uppercase' }}>IMPACT:</div>
+                        <p style={{ fontSize: 8, color: '#202020', lineHeight: 1.4 }}>{selected.impact}</p>
+                      </div>
+
+                      <div style={{ marginTop: 10, fontSize: 6, color: '#686868' }}>OT: {selected.ot} ID: {selected.idNo}</div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {tab === 'moves' && (
+                  <motion.div key="moves">
+                    <div style={{ color: '#303030', fontSize: 9 }}>
+                      {selected.moves.map((move, i) => (
+                        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #eee' }}>
+                          <span>{move.name}</span>
+                          <span style={{ fontSize: 7, color: '#686868' }}>{move.type} / {move.pp}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
-            <AnimatePresence mode="wait">
-              {tab === 'info' && (
-                <motion.div
-                  key="info"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="project-detail-header">
-                    <motion.div 
-                      className="project-sprite"
-                      animate={{ y: [0, -4, 0] }}
-                      transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
-                    >
-                      {typeIcons[selected.type] || '✨'}
-                    </motion.div>
-                    <div className="project-info">
-                      <div className="project-info-name">{selected.name}</div>
-                      <div className="project-info-species">{selected.species}</div>
-                      <div style={{ marginBottom: 8 }}>
-                        <span className={`type-badge type-${selected.type}`}>{selected.type}</span>
-                        {selected.type2 && <span className={`type-badge type-${selected.type2}`}>{selected.type2}</span>}
-                      </div>
-                      <span className={`status-badge status-${selected.status}`}>{selected.status}</span>
-                    </div>
-                  </div>
-
-                  <div className="fr-box" style={{ marginBottom: 12 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-pixel)', fontSize: 8, marginBottom: 8 }}>
-                      <span>Lv. {selected.level}</span>
-                      <span>{selected.hp.current}/{selected.hp.max} HP</span>
-                    </div>
-                    <div className="hp-bar-track">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${(selected.hp.current / selected.hp.max) * 100}%` }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className={`hp-bar-fill ${getHpClass(selected.hp.current, selected.hp.max)}`}
-                      />
-                    </div>
-                  </div>
-
-                  <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, lineHeight: 2.5, padding: '8px 0' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--fr-dark-gray)' }}>OT:</span>
-                      <span>{selected.ot}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--fr-dark-gray)' }}>ID No.:</span>
-                      <span>{selected.idNo}</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: 'var(--fr-dark-gray)' }}>HELD ITEM:</span>
-                      <span>{selected.held}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {tab === 'moves' && (
-                <motion.div 
-                  key="moves"
-                  className="project-moves"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, marginBottom: 12, color: 'var(--fr-dark-gray)' }}>
-                    KNOWN MOVES
-                  </div>
-                  {selected.moves.map((move, i) => (
-                    <motion.div 
-                      key={i} 
-                      className="project-move"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                    >
-                      <span className={`type-badge type-${move.type}`} style={{ fontSize: 6 }}>{move.type}</span>
-                      <span className="project-move-name">{move.name}</span>
-                      <span className="project-move-pp">PP: {move.pp}</span>
-                      <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'var(--fr-dark-gray)' }}>
-                        PWR {move.power}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+          <div className="party-footer-gba">
+            <div className="party-dialog-gba">
+              Check {selected.name}'s info?
+            </div>
+            <button className="nes-btn is-error" onClick={handleBack} style={{ fontSize: 8, padding: '4px 10px' }}>
+              BACK
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
+
   return (
-    <div>
-      <div className="section-title">POKéMON — PROJECTS</div>
-      <div style={{ padding: 8, fontFamily: 'var(--font-pixel)', fontSize: 8, color: 'var(--fr-dark-gray)', borderBottom: '2px solid var(--fr-box-border)', background: 'var(--fr-white)' }}>
-        Choose a POKéMON.
-      </div>
-      <motion.div 
-        className="party-grid"
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: { opacity: 0 },
-          show: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-          }
-        }}
-      >
-        {projects.map((proj, i) => (
-          <motion.div
-            key={i}
-            variants={{
-              hidden: { opacity: 0, scale: 0.9 },
-              show: { opacity: 1, scale: 1 }
-            }}
-            whileHover={{ scale: i === 0 ? 1.02 : 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`party-slot ${i === 0 ? 'slot-main' : ''}`}
-            onClick={() => handleSelect(proj)}
-          >
-            <motion.div 
-              className="party-slot-icon"
-              animate={{ y: [0, -3, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.2 }}
-            >
-              {typeIcons[proj.type] || '✨'}
-            </motion.div>
-            <div className="party-slot-info">
-              <div className="party-slot-name">
-                {proj.name}
-                {proj.status !== 'OK' && (
-                  <span className={`status-badge status-${proj.status}`} style={{ marginLeft: 6 }}>{proj.status}</span>
-                )}
-              </div>
-              <div className="party-slot-level">Lv.{proj.level} — {proj.species}</div>
-              <div className="party-hp">
-                <span className="party-hp-label">HP</span>
-                <div className="party-hp-bar">
+    <div className="pokemon-screen-wrapper">
+      <div className="pokemon-bg-layer">
+        <div className="party-layout">
+          {/* Main Slot (Project 1) */}
+          <div className="party-main-slot-container">
+            {projects[0] && (
+              <motion.div
+                className="party-slot-gba main-slot-gba"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleSelect(projects[0])}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}>
                   <motion.div
-                    className="party-hp-fill"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(proj.hp.current / proj.hp.max) * 100}%` }}
-                    transition={{ duration: 0.5, delay: 0.2 + (i * 0.1) }}
-                    style={{
-                      background: (proj.hp.current / proj.hp.max) > 0.5 ? 'var(--fr-green)' : (proj.hp.current / proj.hp.max) > 0.2 ? 'var(--fr-orange)' : 'var(--fr-red)',
-                    }}
-                  />
+                    className="slot-icon-gba"
+                    style={{ fontSize: 48 }}
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    {typeIcons[projects[0].type] || '✨'}
+                  </motion.div>
+                  <div className="slot-info-gba">
+                    <div className="slot-name-gba" style={{ fontSize: 11, marginBottom: 6 }}>{projects[0].name}</div>
+                    <div className="slot-meta-gba" style={{ fontSize: 9, marginBottom: 8 }}>Lv.{projects[0].level}</div>
+                    <div className="hp-container-gba">
+                      <span className="hp-label-gba">HP</span>
+                      <div className="hp-bar-gba">
+                        <motion.div
+                          className="hp-fill-gba"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(projects[0].hp.current / projects[0].hp.max) * 100}%` }}
+                          transition={{ duration: 0.8, delay: 0.3 }}
+                          style={{
+                            background: (projects[0].hp.current / projects[0].hp.max) > 0.5 ? '#40c868' : (projects[0].hp.current / projects[0].hp.max) > 0.2 ? '#f8b050' : '#f85838',
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'right', fontSize: 8, color: 'white', marginTop: 4 }}>
+                      {projects[0].hp.current}/{projects[0].hp.max}
+                    </div>
+                  </div>
                 </div>
-                <span className="party-hp-text">{proj.hp.current}/{proj.hp.max}</span>
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+              </motion.div>
+            )}
+          </div>
+
+          {/* List Slots (Projects 2-6) */}
+          <div className="party-list-container">
+            {projects.slice(1, 6).map((proj, i) => (
+              <motion.div
+                key={i}
+                className="party-slot-gba list-slot-gba"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 * (i + 1) }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleSelect(proj)}
+              >
+                <div className="slot-icon-gba" style={{ fontSize: 24 }}>
+                  {typeIcons[proj.type] || '✨'}
+                </div>
+                <div className="slot-info-gba">
+                  <div className="slot-name-gba">{proj.name}</div>
+                  <div className="slot-meta-gba">
+                    <span>Lv.{proj.level}</span>
+                    <div className="hp-container-gba" style={{ width: '55%' }}>
+                      <span className="hp-label-gba" style={{ fontSize: 5 }}>HP</span>
+                      <div className="hp-bar-gba">
+                        <motion.div
+                          className="hp-fill-gba"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(proj.hp.current / proj.hp.max) * 100}%` }}
+                          transition={{ duration: 0.8, delay: 0.5 + (i * 0.1) }}
+                          style={{
+                            background: (proj.hp.current / proj.hp.max) > 0.5 ? '#40c868' : (proj.hp.current / proj.hp.max) > 0.2 ? '#f8b050' : '#f85838',
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ position: 'absolute', right: 12, bottom: 4, fontSize: 7, color: 'white' }}>
+                  {proj.hp.current}/{proj.hp.max}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="party-footer-gba">
+          <div className="party-dialog-gba">
+            Choose a POKéMON.
+          </div>
+          {/* <button className="party-cancel-gba" onClick={() => { playSound('back'); onClose && onClose(); }}>
+            CANCEL
+          </button> */}
+        </div>
+      </div>
     </div>
   );
 }

@@ -42,7 +42,9 @@ export const projects = [
       { name: 'AZURE DEPLOY', type: 'FLYING', pp: 'Cloud Host', power: 85 },
       { name: 'POSTGRES SYNC', type: 'GROUND', pp: 'Data Store', power: 88 },
     ],
-    flavor: 'Developed a digital platform designed to bridge the gap between freelancers and Small & Medium Enterprises (SMEs). Enabled SMEs to boost their digital presence.'
+    flavor: 'Developed a digital platform designed to bridge the gap between freelancers and Small & Medium Enterprises (SMEs). Enabled SMEs to boost their digital presence.',
+    tech: ['Next.js', 'Postgres', 'Azure'],
+    impact: 'Empowers SMEs to digitize workflows and find niche talent.'
   },
   {
     name: 'SEMANTIC STRUCTURE GENERATOR',
@@ -60,7 +62,9 @@ export const projects = [
       { name: 'JSON SCHEMA', type: 'STEEL', pp: 'Structured Data', power: 92 },
       { name: 'REACT RENDER', type: 'ELECTRIC', pp: 'Real-time 3D', power: 95 },
     ],
-    flavor: 'A generative 3D environment that transforms semantic text prompts into complex composite structures. Leverages Gemini 2.5 Flash to architect detailed blueprints of primitive parts assembled into tangible buildings.'
+    flavor: 'A generative 3D environment that transforms semantic text prompts into complex composite structures. Leverages Gemini 2.5 Flash to architect detailed blueprints.',
+    tech: ['R3F', 'Gemini API', 'Flask'],
+    impact: 'Automated 3D composition from plain English descriptors.'
   },
   {
     name: 'ECHO TERRAIN VISUALIZER',
@@ -78,7 +82,9 @@ export const projects = [
       { name: 'TERRAIN MESH', type: 'GROUND', pp: '14k+ Grid Points', power: 94 },
       { name: 'WATER SHADER', type: 'WATER', pp: 'Cinematic Bowl', power: 90 },
     ],
-    flavor: 'A high-fidelity real-time 3D audio visualizer that transforms sound into a dynamic, shifting landscape. Extracts frequency data and maps it to a procedurally generated terrain with fluid animation and immersive stone bowl environment.'
+    flavor: 'A high-fidelity real-time 3D audio visualizer that transforms sound into a dynamic, shifting landscape. Maps frequency data to procedurally generated terrain.',
+    tech: ['Three.js', 'Web Audio API', 'GLSL'],
+    impact: 'Unique terrain landscapes generated per audio track.'
   }
 ];
 

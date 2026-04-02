@@ -118,7 +118,7 @@ export default function Home() {
   const renderSection = () => {
     switch (activeSection) {
       case 'pokedex': return <Pokedex />;
-      case 'pokemon': return <Pokemon />;
+      case 'pokemon': return <Pokemon onClose={handleBack} />;
       case 'bag': return <Bag />;
       case 'trainer': return <TrainerCard />;
       case 'save': return <Save />;
