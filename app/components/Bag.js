@@ -43,118 +43,104 @@ export default function Bag() {
     setSelectedItem(item);
   }, []);
 
+  const handlePrevPocket = () => {
+    playSound('cursor');
+    const currentIndex = pockets.findIndex(p => p.key === activePocket);
+    const prevIndex = (currentIndex - 1 + pockets.length) % pockets.length;
+    setActivePocket(pockets[prevIndex].key);
+    setSelectedItem(null);
+    setHoveredItem(null);
+  };
+
+  const handleNextPocket = () => {
+    playSound('cursor');
+    const currentIndex = pockets.findIndex(p => p.key === activePocket);
+    const nextIndex = (currentIndex + 1) % pockets.length;
+    setActivePocket(pockets[nextIndex].key);
+    setSelectedItem(null);
+    setHoveredItem(null);
+  };
+
   return (
-    <div>
-      <div className="section-title">BAG — TOOLKIT</div>
+    <div className="bag-screen-container">
+      <div className="bag-background">
+        
+        {/* Pocket Title */}
+        <div className="bag-pocket-title">
+          {pocket.label}
+        </div>
 
-      {/* Pocket tabs */}
-      <div className="bag-pockets">
-        {pockets.map((p) => (
-          <button
-            key={p.key}
-            className={`bag-pocket-tab ${activePocket === p.key ? 'active' : ''}`}
-            onClick={() => handlePocketChange(p.key)}
-          >
-            {p.icon} {p.label}
-          </button>
-        ))}
-      </div>
+        {/* Navigation Arrows */}
+        <button className="bag-nav-arrow bag-arrow-left" onClick={handlePrevPocket}>
+          <img src={`${BASE_PATH}/sprites/left.png`} alt="Prev pocket" />
+        </button>
+        <button className="bag-nav-arrow bag-arrow-right" onClick={handleNextPocket}>
+          <img src={`${BASE_PATH}/sprites/right.png`} alt="Next pocket" />
+        </button>
 
-      {/* Item list */}
-      <motion.div 
-        style={{ minHeight: 200 }}
-        key={activePocket}
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.05 }
-          }
-        }}
-      >
-        {pocket.data.map((item, i) => (
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, x: 20 },
-              visible: { opacity: 1, x: 0 }
-            }}
-            whileHover={{ scale: 1.01, backgroundColor: 'rgba(0,0,0,0.06)' }}
-            whileTap={{ scale: 0.98 }}
-            key={i}
-            className={`bag-item ${activePocket === 'pokeBalls' ? 'learning-item' : ''}`}
-            onClick={() => handleItemClick(item)}
-            onMouseEnter={() => setHoveredItem(item)}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            {activePocket === 'pokeBalls' ? (
+        {/* Item List */}
+        <div className="bag-items-list-container">
+          <ul className="bag-items-list">
+            {pocket.data.map((item, i) => {
+              const isSelected = selectedItem === item;
+              const isHovered = hoveredItem === item;
+              const showCursor = isSelected || (isHovered && !selectedItem);
+              
+              const isPokeBallPocket = activePocket === 'pokeBalls';
+              const displayName = isPokeBallPocket 
+                ? item.name.split(' - ')[1] || item.name 
+                : item.name;
+              
+              return (
+                <li
+                  key={i}
+                  className="bag-list-item"
+                  onClick={() => handleItemClick(item)}
+                  onMouseEnter={() => setHoveredItem(item)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <span className="bag-list-cursor" style={{ visibility: showCursor ? 'visible' : 'hidden' }}>▶</span>
+                  {isPokeBallPocket && (
+                    <img 
+                      src={getBallSprite(item.name)} 
+                      alt="ball" 
+                      className="bag-list-item-sprite" 
+                    />
+                  )}
+                  <span className="bag-list-name">{displayName}</span>
+                  <span className="bag-list-qty">
+                    <span className="times">x</span>
+                    {item.qty.toString().padStart(2, ' ')}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        {/* Bottom Description Area */}
+        <div className="bag-description-area">
+          <div className="bag-desc-icon">
+            {activePocket === 'pokeBalls' && (hoveredItem || selectedItem) && (
               <img
-                src={getBallSprite(item.name)}
-                alt={item.name}
+                src={getBallSprite((hoveredItem || selectedItem).name)}
+                alt="ball"
                 className="bag-item-ball-sprite"
                 loading="lazy"
               />
-            ) : (
+            )}
+            {activePocket !== 'pokeBalls' && (hoveredItem || selectedItem) && (
               <span className="bag-item-icon">{pocket.icon}</span>
             )}
-            <span className="bag-item-name">{item.name}</span>
-            <span className="bag-item-qty">{item.qty}</span>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Description panel */}
-      <div className="bag-desc-panel">
-        {(hoveredItem || selectedItem)
-          ? (hoveredItem || selectedItem).desc
-          : 'Select an item to see its description.'
-        }
+          </div>
+          <div className="bag-desc-text">
+            {(hoveredItem || selectedItem)
+              ? (hoveredItem || selectedItem).desc
+              : 'Select an item to see its description.'
+            }
+          </div>
+        </div>
       </div>
-
-      {/* Item popup */}
-      <AnimatePresence>
-        {selectedItem && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'rgba(0,0,0,0.5)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 50,
-            }}
-            onClick={() => { setSelectedItem(null); playSound('back'); }}
-          >
-            <motion.div
-              initial={{ scale: 0.8, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 50 }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
-              className="fr-box fr-box-float"
-              style={{ minWidth: 260, maxWidth: 350 }}
-              onClick={e => e.stopPropagation()}
-            >
-              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 11, marginBottom: 12 }}>
-                {selectedItem.name}
-              </div>
-              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, lineHeight: 2.2, color: 'var(--fr-dark-gray)', marginBottom: 16 }}>
-                {selectedItem.desc}
-              </div>
-              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, color: 'var(--fr-dark-gray)', marginBottom: 16 }}>
-                QTY: {selectedItem.qty}
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button className="fr-btn" onClick={() => { setSelectedItem(null); playSound('back'); }}>CANCEL</button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
