@@ -176,8 +176,8 @@ export const toolkit = {
 
 export const trainerInfo = {
   name: 'ATHARVA SHERAMKAR',
-  idNo: '2028',
-  money: '@ SDE INTERN & FULLSTACK DEV',
+  idNo: '05-11-06',
+  money: '@ SDE INTERN',
   pokedex: skills.length,
   time: '99:99',
   badges: [

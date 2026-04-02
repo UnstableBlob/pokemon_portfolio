@@ -149,7 +149,7 @@ export default function Options({ onSettingsChange }) {
           POKéMON FIRE RED PORTFOLIO<br />
           BUILT WITH NEXT.JS + NES.CSS<br />
           DESIGN INSPIRED BY GAME FREAK<br />
-          © {new Date().getFullYear()} ATHAR
+          © {new Date().getFullYear()} ATHARVA
         </div>
       </motion.div>
     </div>

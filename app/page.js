@@ -11,11 +11,11 @@ import Save from './components/Save';
 import Options from './components/Options';
 
 const menuItems = [
-  { key: 'pokedex', label: 'POKéDEX', icon: '📖' },
-  { key: 'pokemon', label: 'POKéMON', icon: '🔴' },
-  { key: 'bag', label: 'BAG', icon: '🎒' },
-  { key: 'trainer', label: 'ATHAR', icon: '🪪' },
-  { key: 'save', label: 'SAVE', icon: '💾' },
+  { key: 'pokedex', label: 'SKILLS', icon: '📖' },
+  { key: 'pokemon', label: 'PROJECTS', icon: '🔴' },
+  { key: 'bag', label: 'TOOLSET', icon: '🎒' },
+  { key: 'trainer', label: 'BLOB', icon: '🪪' },
+  { key: 'save', label: 'CONTACT', icon: '💾' },
   { key: 'option', label: 'OPTION', icon: '⚙️' },
   { key: 'exit', label: 'EXIT', icon: '🚪' },
 ];

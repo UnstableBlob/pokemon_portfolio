@@ -17,159 +17,116 @@ export default function TrainerCard() {
   }, []);
 
   return (
-    <div>
-      <div className="section-title">{trainerInfo.name} — TRAINER CARD</div>
-      <div style={{ padding: 20, textAlign: 'center' }}>
-        <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, color: 'var(--fr-dark-gray)', marginBottom: 12 }}>
-          Click to flip the card
+    <div className="section-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
+      <div style={{ textAlign: 'center', width: '100%' }}>
+        <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 10, color: '#303030', marginBottom: '16px' }}>
+          TRAINER CARD — {trainerInfo.name}
         </div>
 
         <div className="trainer-card-wrapper">
-          <motion.div 
-            className="trainer-card" 
+          <motion.div
+            className="trainer-card"
             onClick={handleFlip}
             animate={{ rotateY: flipped ? 180 : 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 15 }}
           >
-            {/* FRONT */}
+            {/* FRONT FACE */}
             <div className="card-face card-front">
-              <div style={{ padding: 14 }}>
-                {/* Header */}
-                <div style={{
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  marginBottom: 12, borderBottom: '2px solid var(--fr-box-border)', paddingBottom: 8
-                }}>
-                  <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 10, color: 'var(--fr-box-border)' }}>
-                    TRAINER CARD
-                  </span>
-                  <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, color: 'var(--fr-dark-gray)' }}>
-                    ID No.{trainerInfo.idNo}
-                  </span>
+              <div className="tc-overlay">
+                <div className="tc-header-id">
+                  {trainerInfo.idNo}
                 </div>
 
-                <div style={{ display: 'flex', gap: 16 }}>
-                  {/* Left info */}
-                  <div style={{ flex: 1, textAlign: 'left' }}>
-                    <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, lineHeight: 2.8 }}>
-                      <div style={{ display: 'flex' }}>
-                        <span style={{ color: 'var(--fr-dark-gray)', minWidth: 80 }}>NAME:</span>
-                        <span>{trainerInfo.name}</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <span style={{ color: 'var(--fr-dark-gray)', minWidth: 80 }}></span>
-                        <span style={{ color: 'var(--fr-yellow)', fontSize: 12 }}>★★★</span>
-                      </div>
-                      <div style={{ display: 'flex' }}>
-                        <span style={{ color: 'var(--fr-dark-gray)', minWidth: 80 }}>MONEY:</span>
-                        <span style={{ fontSize: 8 }}>{trainerInfo.money}</span>
-                      </div>
-                      <div style={{ display: 'flex' }}>
-                        <span style={{ color: 'var(--fr-dark-gray)', minWidth: 80 }}>POKéDEX:</span>
-                        <span>{trainerInfo.pokedex}</span>
-                      </div>
-                      <div style={{ display: 'flex' }}>
-                        <span style={{ color: 'var(--fr-dark-gray)', minWidth: 80 }}>TIME:</span>
-                        <span>{trainerInfo.time}</span>
-                      </div>
+                <div className="tc-main-info">
+                  {/* Row 1: NAME */}
+                  <div className="tc-row" style={{ marginTop: '0.5%' }}>
+                    <span className="tc-value" style={{ fontSize: 9 }}>{trainerInfo.name}</span>
+                  </div>
+                  {/* Row 2: MONEY (used for Role) */}
+                  <div className="tc-row" style={{ marginTop: '10%' }}>
+                    <span className="tc-value" style={{ fontSize: 6.5 }}>{trainerInfo.money}</span>
+                  </div>
+                  {/* Row 3: POKEDEX (Skills) */}
+                  <div className="tc-row" style={{ marginTop: '0%' }}>
+                    <span className="tc-value" style={{ fontSize: 7 }}>{trainerInfo.pokedex} SKILLS FOUND</span>
+                  </div>
+                  {/* Row 4: TIME */}
+                  <div className="tc-row" style={{ marginTop: '0%' }}>
+                    <span className="tc-value" style={{ fontSize: 7 }}>{trainerInfo.time}</span>
+                  </div>
+                </div>
+
+                <div className="tc-badges-container">
+                  {trainerInfo.badges.map((badge, i) => (
+                    <div
+                      key={i}
+                      className="tc-badge-slot"
+                      onMouseEnter={() => setHoveredBadge(i)}
+                      onMouseLeave={() => setHoveredBadge(null)}
+                    >
+                      {badge.earned ? (
+                        <motion.span
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.1 * i }}
+                          style={{ fontSize: 13 }}
+                        >
+                          {badgeEmojis[i]}
+                        </motion.span>
+                      ) : null}
+
+                      {hoveredBadge === i && (
+                        <div className="badge-tooltip" style={{ bottom: '130%', left: '50%', transform: 'translateX(-50%)', whiteSpace: 'nowrap', zIndex: 10 }}>
+                          <div style={{ fontSize: 8 }}>{badge.name}</div>
+                          <div style={{ fontSize: 6, opacity: 0.8 }}>{badge.desc}</div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-
-                  {/* Right trainer sprite */}
-                  <div style={{
-                    width: 64, height: 80,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 48,
-                  }}>
-                    🧑‍💻
-                  </div>
-                </div>
-
-                {/* Badges */}
-                <div style={{
-                  borderTop: '2px solid var(--fr-box-border)',
-                  paddingTop: 8,
-                  marginTop: 4,
-                }}>
-                  <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'var(--fr-dark-gray)', marginBottom: 6 }}>
-                    BADGES
-                  </div>
-                  <motion.div 
-                    className="badge-case"
-                    initial="hidden"
-                    animate="visible"
-                    variants={{
-                      hidden: { opacity: 0 },
-                      visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-                    }}
-                  >
-                    {trainerInfo.badges.map((badge, i) => (
-                      <motion.div
-                        key={i}
-                        variants={{
-                          hidden: { scale: 0 },
-                          visible: { scale: 1, transition: { type: "spring", stiffness: 300 } }
-                        }}
-                        className={`badge-item ${!badge.earned ? 'unearned' : ''}`}
-                        onMouseEnter={() => setHoveredBadge(i)}
-                        onMouseLeave={() => setHoveredBadge(null)}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {badgeEmojis[i]}
-                        {hoveredBadge === i && (
-                          <div className="badge-tooltip">
-                            <div>{badge.name}</div>
-                            <div style={{ color: 'var(--fr-dark-gray)' }}>{badge.desc}</div>
-                          </div>
-                        )}
-                      </motion.div>
-                    ))}
-                  </motion.div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* BACK */}
+            {/* BACK FACE */}
             <div className="card-face card-back">
-              <div style={{ padding: 20, textAlign: 'left', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 10, marginBottom: 16, color: 'var(--fr-box-border)' }}>
-                  ABOUT {trainerInfo.name}
-                </div>
-                <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 8, lineHeight: 2.2, color: 'var(--fr-dark-gray)', marginBottom: 20 }}>
-                  {trainerInfo.bio}
-                </div>
-                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                  <a
-                    href={trainerInfo.links.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="fr-btn"
-                    style={{ textDecoration: 'none', fontSize: 8 }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    GITHUB
-                  </a>
-                  <a
-                    href={trainerInfo.links.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="fr-btn"
-                    style={{ textDecoration: 'none', fontSize: 8 }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    LINKEDIN
-                  </a>
-                  <a
-                    href={`mailto:${trainerInfo.links.email}`}
-                    className="fr-btn"
-                    style={{ textDecoration: 'none', fontSize: 8 }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    EMAIL
-                  </a>
+              <div className="tc-overlay">
+                <div className="tc-back-content">
+                  <div className="tc-back-header">
+                    <span style={{ marginLeft: '62%', fontSize: 8 }}>BLOB</span>
+                  </div>
+                  <div className="tc-back-bio">
+                    {trainerInfo.bio}
+                  </div>
+                  {/* <div className="tc-back-links">
+                    <a
+                      href={trainerInfo.links.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="nes-btn is-primary"
+                      style={{ padding: '2px 8px', fontSize: 5.5, textDecoration: 'none' }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      GITHUB
+                    </a>
+                    <a
+                      href={trainerInfo.links.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="nes-btn is-success"
+                      style={{ padding: '2px 8px', fontSize: 5.5, textDecoration: 'none' }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      LINKEDIN
+                    </a>
+                  </div> */}
                 </div>
               </div>
             </div>
           </motion.div>
+        </div>
+
+        <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'rgba(50,50,50,0.5)', marginTop: '12px' }}>
+          ( Click card to flip )
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "ATHAR — Pokémon FireRed Portfolio",
+  title: "ATHARVA — Pokémon FireRed Portfolio",
   description: "A Pokémon FireRed themed developer portfolio. Navigate the pause menu to explore skills, projects, toolkit, and more.",
 };
 
