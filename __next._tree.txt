@@ -1,2 +1,2 @@
-:HL["/pokemon_portfolio/_next/static/chunks/0kpmd4f3sbk5j.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"TkVwxBnqzUidyb9t7e5PS"}
+:HL["/pokemon_portfolio/_next/static/chunks/0rgpl1t0o6y_o.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"ZzNTYMXWvwjhOorNzHBpu"}
