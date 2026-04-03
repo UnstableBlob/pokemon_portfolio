@@ -79,13 +79,13 @@ export default function Pokedex() {
             <div className="pokedex-footer">
               <div className="footer-controls-detail">
                 <div className="control-item">
-                  <span className="control-btn-rect">START</span> CRY
+                  CRY
                 </div>
                 <div className="control-item">
-                  <span className="control-btn-alt">Ⓐ</span> NEXT DATA
+                  NEXT DATA
                 </div>
                 <div className="control-item" onClick={handleBack} style={{ cursor: 'pointer' }}>
-                  <span className="control-btn-alt">Ⓑ</span> CANCEL
+                  CANCEL
                 </div>
               </div>
             </div>
@@ -101,69 +101,66 @@ export default function Pokedex() {
         <div className="pokedex-screen">
           {/* HEADER */}
           <div className="pokedex-header">
-        <div className="header-inner">
-          POKéMON LIST
-        </div>
-      </div>
+            <div className="header-inner">
+              POKéMON LIST
+            </div>
+          </div>
 
-      <div className="pokedex-list-container">
-        {/* Background Stripes */}
-        <div className="pokedex-stripes-bg" />
+          <div className="pokedex-list-container">
+            {/* Background Stripes */}
+            <div className="pokedex-stripes-bg" />
 
-        <ul className="pokedex-list">
-          {skills.map((skill, index) => (
-            <motion.li
-              key={skill.id}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.03 }}
-              className="pokedex-entry"
-              onClick={() => handleSelect(skill)}
-            >
-              <div className="entry-selector">
-                <div className="selector-arrow">▶</div>
+            <ul className="pokedex-list">
+              {skills.map((skill, index) => (
+                <motion.li
+                  key={skill.id}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.03 }}
+                  className="pokedex-entry"
+                  onClick={() => handleSelect(skill)}
+                >
+                  <div className="entry-selector">
+                    <div className="selector-arrow">▶</div>
+                  </div>
+
+                  <div className="entry-content">
+                    <span className="pokedex-num">No{skill.id}</span>
+
+                    <img
+                      src="/pokemon_portfolio/sprites/pokeball.png"
+                      alt="poke"
+                      className="pokedex-ball-img"
+                    />
+
+                    <span className="pokedex-name">
+                      {skill.name.toUpperCase()}
+                      {skill.shiny && <span className="shiny-star">★</span>}
+                    </span>
+
+                    <div className="pokedex-types">
+                      <span className={`type-badge type-${skill.type}`}>{skill.type}</span>
+                      {skill.type2 && (
+                        <span className={`type-badge type-${skill.type2}`}>{skill.type2}</span>
+                      )}
+                    </div>
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+
+          {/* FOOTER */}
+          <div className="pokedex-footer">
+            <div className="footer-controls">
+              <div className="control-item-hint">
+                CLICK A POKéMON FOR INFO
               </div>
-
-              <div className="entry-content">
-                <span className="pokedex-num">No{skill.id}</span>
-                
-                <img 
-                  src="/pokemon_portfolio/sprites/pokeball.png" 
-                  alt="poke" 
-                  className="pokedex-ball-img"
-                />
-
-                <span className="pokedex-name">
-                  {skill.name.toUpperCase()}
-                  {skill.shiny && <span className="shiny-star">★</span>}
-                </span>
-
-                <div className="pokedex-types">
-                  <span className={`type-badge type-${skill.type}`}>{skill.type}</span>
-                  {skill.type2 && (
-                    <span className={`type-badge type-${skill.type2}`}>{skill.type2}</span>
-                  )}
-                </div>
+              <div className="control-item" onClick={() => handleBack()} style={{ cursor: 'pointer' }}>
+                CANCEL
               </div>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-
-      {/* FOOTER */}
-      <div className="pokedex-footer">
-        <div className="footer-controls">
-          <div className="control-item">
-            <span className="control-btn">╋</span> PICK
+            </div>
           </div>
-          <div className="control-item">
-            <span className="control-btn">Ⓐ</span> OK
-          </div>
-          <div className="control-item">
-            <span className="control-btn">Ⓑ</span> CANCEL
-          </div>
-        </div>
-      </div>
         </div>
       </div>
     </div>
