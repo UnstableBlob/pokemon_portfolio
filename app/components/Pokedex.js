@@ -26,146 +26,146 @@ export default function Pokedex() {
 
   if (selected) {
     return (
-      <div>
-        <div className="section-title">
-          <button className="back-btn" onClick={handleBack}>◀ BACK</button>
-          POKéDEX — #{selected.id}
-        </div>
-        <div className="pokedex-detail">
-          <div className="pokedex-detail-header">
-            <motion.div
-              className="pokedex-sprite"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            >
-              <motion.div
-                animate={{ y: [0, -5, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-              >
-                {selected.sprite}
-              </motion.div>
-            </motion.div>
-            <motion.div
-              className="pokedex-info"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="pokedex-info-name">
-                {selected.name}
-                {selected.shiny && <span className="shiny-star">★</span>}
+      <div className="pokedex-screen-wrapper">
+        <div className="pokedex-bg-layer">
+          <div className="pokedex-detail-screen">
+            {/* HEADER */}
+            <div className="pokedex-header">
+              <div className="header-inner">
+                POKéMON LIST
               </div>
-              <div style={{ marginBottom: 8 }}>
-                <span className={`type-badge type-${selected.type}`}>{selected.type}</span>
-                {selected.type2 && <span className={`type-badge type-${selected.type2}`}>{selected.type2}</span>}
-              </div>
-              <div className="pokedex-meta">
-                HT: {selected.height}<br />
-                WT: {selected.weight}
-              </div>
-            </motion.div>
-          </div>
+            </div>
 
-          <motion.div
-            className="pokedex-flavor"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            {selected.flavor}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, marginBottom: 8, color: 'var(--fr-dark-gray)' }}
-          >
-            BASE STATS
-          </motion.div>
-          <div className="stats-grid">
-            {Object.entries(selected.stats).map(([key, val], i) => {
-              const labels = { hp: 'HP', atk: 'ATK', def: 'DEF', spAtk: 'SP.ATK', spDef: 'SP.DEF', speed: 'SPEED' };
-              return (
-                <div className="stat-row" key={key}>
-                  <span className="stat-label">{labels[key]}</span>
-                  <span className="stat-value">{val}</span>
-                  <div className="stat-bar-track">
-                    <motion.div
-                      className="stat-bar-fill"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${val}%` }}
-                      transition={{ duration: 0.6, delay: 0.4 + (i * 0.1), type: "spring" }}
-                      style={{ background: getStatColor(val) }}
-                    />
+            <div className="pokedex-detail-content">
+              {/* TOP INFO BOX */}
+              <div className="pokedex-detail-top">
+                <div className="pd-info-left">
+                  <div className="pd-row-main">
+                    <span className="pd-num">No{selected.id}</span>
+                    <span className="pd-name">{selected.name.toUpperCase()}</span>
+                  </div>
+                  <div className="pd-species">
+                    {selected.type.toUpperCase()} POKéMON
+                  </div>
+                  <div className="pd-meta-row">
+                    <span className="pd-meta-label">HT</span>
+                    <span className="pd-meta-value">5' 07"</span>
+                  </div>
+                  <div className="pd-meta-row">
+                    <span className="pd-meta-label">WT</span>
+                    <span className="pd-meta-value">132.5 lbs.</span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+                <div className="pd-sprite-container">
+                  <motion.div
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="pd-sprite-main"
+                  >
+                    {selected.sprite}
+                  </motion.div>
+                </div>
+              </div>
 
-          {selected.evolution && (
-            <>
-              <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, marginTop: 20, marginBottom: 8, color: 'var(--fr-dark-gray)' }}>
-                EVOLUTION CHAIN
+              {/* BOTTOM FLAVOR BOX */}
+              <div className="pokedex-detail-bottom">
+                <p className="pd-flavor-text">
+                  {selected.flavor}
+                </p>
               </div>
-              <div className="evolution-chain">
-                {selected.evolution.map((evo, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    {i > 0 && <span className="evo-arrow">▶</span>}
-                    <div className="evo-stage">{evo}</div>
-                  </div>
-                ))}
+            </div>
+
+            {/* FOOTER */}
+            <div className="pokedex-footer">
+              <div className="footer-controls-detail">
+                <div className="control-item">
+                  <span className="control-btn-rect">START</span> CRY
+                </div>
+                <div className="control-item">
+                  <span className="control-btn-alt">Ⓐ</span> NEXT DATA
+                </div>
+                <div className="control-item" onClick={handleBack} style={{ cursor: 'pointer' }}>
+                  <span className="control-btn-alt">Ⓑ</span> CANCEL
+                </div>
               </div>
-            </>
-          )}
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="section-title">POKéDEX — SKILLS</div>
-      <div className="counter-bar">
-        <span>SEEN: {skills.length}</span>
-        <span>OWN: {skills.length}</span>
+    <div className="pokedex-screen-wrapper">
+      <div className="pokedex-bg-layer">
+        <div className="pokedex-screen">
+          {/* HEADER */}
+          <div className="pokedex-header">
+        <div className="header-inner">
+          POKéMON LIST
+        </div>
       </div>
-      <motion.ul
-        className="pokedex-list"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.05 }
-          }
-        }}
-      >
-        {skills.map((skill) => (
-          <motion.li
-            key={skill.id}
-            variants={{
-              hidden: { opacity: 0, x: 20 },
-              visible: { opacity: 1, x: 0 }
-            }}
-            whileHover={{ scale: 1.02, x: -5, backgroundColor: 'rgba(0,0,0,0.06)' }}
-            whileTap={{ scale: 0.98 }}
-            className="pokedex-entry"
-            onClick={() => handleSelect(skill)}
-          >
-            <span className="pokedex-ball">🔴</span>
-            <span className="pokedex-num">No{skill.id}</span>
-            <span className="pokedex-name">
-              {skill.name}
-              {skill.shiny && <span className="shiny-star">★</span>}
-            </span>
-            <span className={`type-badge type-${skill.type}`} style={{ fontSize: 6 }}>{skill.type}</span>
-          </motion.li>
-        ))}
-      </motion.ul>
+
+      <div className="pokedex-list-container">
+        {/* Background Stripes */}
+        <div className="pokedex-stripes-bg" />
+
+        <ul className="pokedex-list">
+          {skills.map((skill, index) => (
+            <motion.li
+              key={skill.id}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.03 }}
+              className="pokedex-entry"
+              onClick={() => handleSelect(skill)}
+            >
+              <div className="entry-selector">
+                <div className="selector-arrow">▶</div>
+              </div>
+
+              <div className="entry-content">
+                <span className="pokedex-num">No{skill.id}</span>
+                
+                <img 
+                  src="/pokemon_portfolio/sprites/pokeball.png" 
+                  alt="poke" 
+                  className="pokedex-ball-img"
+                />
+
+                <span className="pokedex-name">
+                  {skill.name.toUpperCase()}
+                  {skill.shiny && <span className="shiny-star">★</span>}
+                </span>
+
+                <div className="pokedex-types">
+                  <span className={`type-badge type-${skill.type}`}>{skill.type}</span>
+                  {skill.type2 && (
+                    <span className={`type-badge type-${skill.type2}`}>{skill.type2}</span>
+                  )}
+                </div>
+              </div>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
+
+      {/* FOOTER */}
+      <div className="pokedex-footer">
+        <div className="footer-controls">
+          <div className="control-item">
+            <span className="control-btn">╋</span> PICK
+          </div>
+          <div className="control-item">
+            <span className="control-btn">Ⓐ</span> OK
+          </div>
+          <div className="control-item">
+            <span className="control-btn">Ⓑ</span> CANCEL
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
     </div>
   );
 }
