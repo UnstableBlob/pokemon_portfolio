@@ -184,7 +184,7 @@ export const trainerInfo = {
     { name: 'Startup Badge', desc: 'Fullstack SDE at Fundora', earned: true },
     { name: 'Visualizer Badge', desc: 'Mastered 3D Audio Visuals', earned: true },
     { name: 'Platform Badge', desc: 'Developed the Levelers platform', earned: true },
-    { name: 'Vidyalankar Badge', desc: 'Batch of 2028 Computer Engineering', earned: false },
+    { name: 'Vidyalankar Badge', desc: 'Batch of 2028 Computer Engineering', earned: true },
   ],
   bio: 'Ambitious Computer Engineering undergraduate (Batch of 2028) with a strong foundation in software development. Gamer, tech enthusiast, and full-stack developer passionate about building scalable digital solutions.',
   links: {
