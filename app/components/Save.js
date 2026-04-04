@@ -1,120 +1,192 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { playSound } from '../utils/sound';
 import { trainerInfo } from '../utils/data';
 
-const socials = [
-  {
-    key: 'github',
-    label: 'GITHUB',
-    icon: '🐙',
-    desc: 'Source code & projects',
-    href: trainerInfo.links.github,
-    color: 'var(--fr-box-border)',
-  },
-  {
-    key: 'linkedin',
-    label: 'LINKEDIN',
-    icon: '💼',
-    desc: 'Professional profile',
-    href: trainerInfo.links.linkedin,
-    color: '#0a66c2',
-  },
-  {
-    key: 'email',
-    label: 'EMAIL',
-    icon: '✉️',
-    desc: trainerInfo.links.email,
-    href: `mailto:${trainerInfo.links.email}`,
-    color: 'var(--fr-red)',
-  },
-];
-
 export default function Save() {
-  const handleClick = useCallback(() => {
-    playSound('confirm');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const menuItems = [
+    { 
+      type: 'continue',
+      label: 'LINKEDIN',
+      player: 'ATHARVA',
+      time: '2024:04',
+      badges: '08',
+      href: trainerInfo.links.linkedin,
+    },
+    { 
+      type: 'newgame',
+      label: 'GITHUB',
+      href: trainerInfo.links.github,
+    },
+    { 
+      type: 'email',
+      label: 'EMAIL',
+      href: `mailto:atharva20453@gmail.com`,
+    }
+  ];
+
+  const handleSelect = useCallback((item) => {
+    if (item.href) {
+      playSound('confirm');
+      window.open(item.href, '_blank');
+    }
   }, []);
 
   return (
-    <div>
-      <div className="section-title">SAVE — CONTACT</div>
-
-      <div className="save-dialog">
-        {/* Intro box */}
-        <motion.div
-          className="fr-box"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          style={{ maxWidth: 440, margin: '24px auto 20px', textAlign: 'center' }}
-        >
-          <div style={{ lineHeight: 2.4, marginBottom: 6 }}>
-            Would you like to save<br />the game?
-          </div>
-          <div style={{ fontSize: 7, color: 'var(--fr-dark-gray)' }}>
-            Choose a save slot below.
-          </div>
-        </motion.div>
-
-        {/* Social buttons */}
-        <div style={{ maxWidth: 440, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {socials.map((social, i) => (
-            <motion.a
-              key={social.key}
-              href={social.href}
-              target={social.key !== 'email' ? '_blank' : undefined}
-              rel="noopener noreferrer"
-              className="fr-box"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 + 0.2, type: 'spring', stiffness: 300, damping: 22 }}
-              whileHover={{ scale: 1.02, x: 6 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => handleClick(social.key)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                textDecoration: 'none',
-                color: 'inherit',
-                cursor: 'pointer',
-                padding: '10px 14px',
-              }}
-            >
-              <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: 'var(--fr-red)', minWidth: 12 }}>▶</span>
-              <span style={{ fontSize: 22 }}>{social.icon}</span>
-              <div style={{ flex: 1, textAlign: 'left' }}>
-                <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 10, marginBottom: 4, color: social.color }}>
-                  {social.label}
+    <div className="pokemon-screen-wrapper">
+      <div className="save-full-container">
+        <div className="save-menu-stack">
+          {menuItems.map((item, i) => {
+            if (item.type === 'continue') {
+              return (
+                <div 
+                  key={i}
+                  className={`save-slot-continue ${selectedIndex === i ? 'active' : ''}`}
+                  onMouseEnter={() => { if(selectedIndex !== i) { playSound('cursor'); setSelectedIndex(i); } }}
+                  onClick={() => handleSelect(item)}
+                >
+                  <div className="slot-inner-white">
+                    <div className="slot-title">{item.label}</div>
+                    <div className="slot-grid">
+                      <div className="slot-row">
+                        <span className="label-blue">PLAYER</span>
+                        <span className="value-black">{item.player}</span>
+                      </div>
+                      <div className="slot-row">
+                        <span className="label-blue">TIME</span>
+                        <span className="value-black">{item.time}</span>
+                      </div>
+                      <div className="slot-row" style={{ marginTop: 'auto' }}>
+                        <span className="label-blue">BADGES</span>
+                        <span className="value-black">{item.badges}</span>
+                      </div>
+                    </div>
+                  </div>
+                  {selectedIndex === i && <motion.div layoutId="save-cursor" className="save-selection-border" />}
                 </div>
-                <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'var(--fr-dark-gray)' }}>
-                  {social.desc}
+              );
+            }
+
+            return (
+              <div
+                key={i}
+                className={`save-slot-bar ${selectedIndex === i ? 'active' : ''}`}
+                onMouseEnter={() => { if(selectedIndex !== i) { playSound('cursor'); setSelectedIndex(i); } }}
+                onClick={() => handleSelect(item)}
+              >
+                <div className="slot-inner-gray">
+                   {item.label}
                 </div>
+                {selectedIndex === i && <motion.div layoutId="save-cursor" className="save-selection-border" />}
               </div>
-              <span style={{ fontFamily: 'var(--font-pixel)', fontSize: 9, color: 'var(--fr-dark-gray)' }}>›</span>
-            </motion.a>
-          ))}
+            );
+          })}
         </div>
-
-        {/* Footer note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          style={{
-            fontFamily: 'var(--font-pixel)',
-            fontSize: 7,
-            color: 'var(--fr-dark-gray)',
-            textAlign: 'center',
-            marginTop: 24,
-            lineHeight: 2.2,
-          }}
-        >
-          Do not turn off the power.
-        </motion.div>
       </div>
+
+      <style jsx>{`
+        .save-full-container {
+          width: 100%;
+          height: 100%;
+          background: #485888; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          image-rendering: pixelated;
+        }
+
+        .save-menu-stack {
+          width: 85%;
+          max-width: 440px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .save-slot-continue {
+          position: relative;
+          background: #303030;
+          padding: 3px;
+          cursor: pointer;
+        }
+
+        .slot-inner-white {
+          background: white;
+          border: 2px solid #d0d0d0;
+          padding: 20px 24px;
+          min-height: 140px;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .slot-title {
+          font-family: 'Press Start 2P', cursive;
+          font-size: 13px;
+          color: #303030;
+          margin-bottom: 24px;
+          letter-spacing: 1px;
+        }
+
+        .slot-grid {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .slot-row {
+          display: flex;
+          gap: 40px;
+          align-items: baseline;
+        }
+
+        .label-blue {
+          font-family: 'Press Start 2P', cursive;
+          font-size: 10px;
+          color: #50a0f8; 
+          width: 110px;
+        }
+
+        .value-black {
+          font-family: 'Press Start 2P', cursive;
+          font-size: 10px;
+          color: #383838;
+          text-transform: uppercase;
+        }
+
+        .save-slot-bar {
+          position: relative;
+          background: #303030;
+          padding: 3px;
+          cursor: pointer;
+        }
+
+        .slot-inner-gray {
+          background: #808080;
+          border: 2px solid #989898;
+          padding: 14px 24px;
+          font-family: 'Press Start 2P', cursive;
+          font-size: 10px;
+          color: #303030;
+          text-transform: uppercase;
+        }
+
+        .save-slot-bar.active .slot-inner-gray {
+          background: #a0a0a0;
+        }
+
+        .save-selection-border {
+          position: absolute;
+          inset: -6px;
+          border: 4px solid #f8d038;
+          pointer-events: none;
+          z-index: 10;
+        }
+      `}</style>
     </div>
   );
 }
