@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { playSound } from '../utils/sound';
 import { trainerInfo } from '../utils/data';
+import GithubPixelGraph from './GithubPixelGraph';
 
 const Sparkle = ({ x, y, delay }) => (
   <motion.div
@@ -149,33 +150,83 @@ export default function TrainerCard() {
               <div className="tc-overlay">
                 <div className="tc-back-content">
                   <div className="tc-back-header">
-                    <span style={{ marginLeft: '62%', fontSize: 15 }}>BLOB</span>
+                    <span style={{ marginLeft: '62%', fontSize: 20 }}>BLOB</span>
                   </div>
-                  <div className="tc-back-bio" style={{ fontSize: 11 }}>
+
+                  {/* Compact bio info */}
+                  <div style={{
+                    marginTop: '8%',
+                    marginBottom: '5%',
+                    fontFamily: 'var(--font-pixel)',
+                    fontSize: 7,
+                    lineHeight: 1.6,
+                    color: '#303030',
+                    textAlign: 'center',
+                    minHeight: '40px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
                     {trainerInfo.bio}
                   </div>
-                  {/* <div className="tc-back-links">
-                    <a
-                      href={trainerInfo.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="nes-btn is-primary"
-                      style={{ padding: '2px 8px', fontSize: 5.5, textDecoration: 'none' }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      GITHUB
-                    </a>
-                    <a
-                      href={trainerInfo.links.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="nes-btn is-success"
-                      style={{ padding: '2px 8px', fontSize: 5.5, textDecoration: 'none' }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      LINKEDIN
-                    </a>
-                  </div> */}
+
+                  {/* GitHub Pixel Graph — fills remaining space */}
+                  <div style={{
+                    padding: '0 4% 4%',
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 4,
+                  }}>
+                    {/* Label row */}
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      fontFamily: 'var(--font-pixel)',
+                      fontSize: 10,
+                      color: '#404040',
+                      paddingBottom: 3,
+                      borderBottom: '1px solid #c0c0c0',
+                      marginBottom: 3
+                    }}>
+                      <span style={{ fontWeight: 'bold', letterSpacing: '0.2px' }}>GITHUB CONTRIBUTIONS</span>
+                      <span style={{ opacity: 1, fontSize: 10 }}>6 MO</span>
+                    </div>
+
+                    {/* Pixel graph container - Light Retro Theme */}
+                    <div style={{
+                      background: '#FFFFFF',
+                      border: '3px solid #383838',
+                      padding: '8px 6px',
+                      boxShadow: '2px 2px 0px #A0B0C0',
+                      imageRendering: 'pixelated',
+                      marginBottom: 2
+                    }}>
+                      <GithubPixelGraph
+                        username={trainerInfo.links.github.split('/').pop()}
+                        numWeeks={26}
+                      />
+                    </div>
+
+                    {/* Legend - Themed and aligned */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 4,
+                      justifyContent: 'flex-end',
+                      fontFamily: 'var(--font-pixel)',
+                      fontSize: 6,
+                      color: '#404040',
+                      marginTop: 4,
+                    }}>
+                      <span>LESS</span>
+                      {['#EAEAEA', '#A1D99B', '#74C476', '#31A354', '#006D2C'].map(c => (
+                        <div key={c} style={{ width: 6, height: 6, background: c, outline: '1px solid rgba(0,0,0,0.15)', borderRadius: 0, imageRendering: 'pixelated' }} />
+                      ))}
+                      <span>MORE</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,7 +240,7 @@ export default function TrainerCard() {
         <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'rgba(255, 255, 255, 1)', marginTop: '12px' }}>
           ( Click card to flip )
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

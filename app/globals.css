@@ -1469,10 +1469,11 @@ body {
 .save-bg-layer {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.5; /* Native GBA aspect ratio (240x160) */
+  aspect-ratio: 1.5;
+  /* Native GBA aspect ratio (240x160) */
   max-width: 100%;
   max-height: 100%;
-  background: #485888; 
+  background: #485888;
   display: flex;
   align-items: center;
   justify-content: center;
