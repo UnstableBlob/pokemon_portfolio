@@ -465,7 +465,36 @@ body {
   transition: none;
 }
 
-/* ─── TRAINER CARD ─── */
+/* ─── TRAINER CARD (GBA ACCURATE ASPECT RATIO) ─── */
+.trainer-screen-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fr-black);
+  overflow: hidden;
+  font-family: var(--font-pixel);
+}
+
+.trainer-bg-layer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.5;
+  /* Native GBA aspect ratio (240x160) */
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #48a79f;
+  background-image: repeating-linear-gradient(rgba(116, 255, 255, 0.4) 0px,
+      rgba(216, 240, 240, 0.4) 2px,
+      transparent 2px,
+      transparent 4px);
+}
+
 .trainer-card-wrapper {
   perspective: 1200px;
   width: 90%;
@@ -891,7 +920,8 @@ body {
 .pokedex-bg-layer {
   position: relative;
   width: 100%;
-  aspect-ratio: 240 / 160; /* Matches Bag and Projects */
+  aspect-ratio: 240 / 160;
+  /* Matches Bag and Projects */
   max-width: 100%;
   background: #f0f8f8;
   display: flex;
@@ -904,12 +934,11 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-image: repeating-linear-gradient(
-    rgba(216, 240, 240, 0.4) 0px,
-    rgba(216, 240, 240, 0.4) 2px,
-    transparent 2px,
-    transparent 4px
-  );
+  background-color: #ffffff;
+  background-image: repeating-linear-gradient(rgb(148, 253, 255) 0px,
+      rgba(216, 240, 240, 0.4) 2px,
+      transparent 2px,
+      transparent 4px);
 }
 
 .pokedex-header {
@@ -1004,7 +1033,8 @@ body {
   box-shadow: 0 -2px 0 #585858;
 }
 
-.footer-controls, .footer-controls-detail {
+.footer-controls,
+.footer-controls-detail {
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -1015,7 +1045,8 @@ body {
   width: 100%;
 }
 
-.control-item, .control-item-hint {
+.control-item,
+.control-item-hint {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -1028,7 +1059,8 @@ body {
   text-transform: uppercase;
 }
 
-.control-btn, .control-btn-alt {
+.control-btn,
+.control-btn-alt {
   background: white;
   color: #98b028;
   width: 3.5cqw;
@@ -1058,12 +1090,10 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-image: repeating-linear-gradient(
-    rgba(216, 240, 240, 0.4) 0px,
-    rgba(216, 240, 240, 0.4) 2px,
-    transparent 2px,
-    transparent 4px
-  );
+  background-image: repeating-linear-gradient(rgba(216, 240, 240, 0.4) 0px,
+      rgba(216, 240, 240, 0.4) 2px,
+      transparent 2px,
+      transparent 4px);
 }
 
 .pokedex-detail-content {
@@ -1072,7 +1102,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2%;
-  min-height: 0; /* Allow shrinking */
+  min-height: 0;
+  /* Allow shrinking */
 }
 
 .pokedex-detail-top {
@@ -1082,7 +1113,7 @@ body {
   padding: 2% 5%;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .pd-info-left {
@@ -1149,7 +1180,7 @@ body {
   border-radius: 8px;
   padding: 3% 5%;
   flex: 1;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -1434,7 +1465,20 @@ body {
   line-height: 1.6;
 }
 
-/* ─── SAVE / CONTACT ─── */
+/* ─── SAVE / CONTACT (GBA ACCURATE ASPECT RATIO) ─── */
+.save-bg-layer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.5; /* Native GBA aspect ratio (240x160) */
+  max-width: 100%;
+  max-height: 100%;
+  background: #485888; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  image-rendering: pixelated;
+}
+
 .save-dialog {
   padding: 24px;
   font-family: var(--font-pixel);

@@ -38,7 +38,7 @@ export default function Save() {
 
   return (
     <div className="pokemon-screen-wrapper">
-      <div className="save-full-container">
+      <div className="save-bg-layer">
         <div className="save-menu-stack">
           {menuItems.map((item, i) => {
             if (item.type === 'continue') {
@@ -89,16 +89,6 @@ export default function Save() {
       </div>
 
       <style jsx>{`
-        .save-full-container {
-          width: 100%;
-          height: 100%;
-          background: #485888; 
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          image-rendering: pixelated;
-        }
-
         .save-menu-stack {
           width: 85%;
           max-width: 440px;

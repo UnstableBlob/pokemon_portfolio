@@ -53,8 +53,8 @@ export default function TrainerCard() {
   }, []);
 
   return (
-    <div className="section-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
-      <div style={{ textAlign: 'center', width: '100%', padding: '20px' }}>
+    <div className="trainer-screen-wrapper">
+      <div className="trainer-bg-layer">
         <div className="trainer-card-wrapper">
           <motion.div
             className={`trainer-card ${flipped ? 'is-flipped' : ''}`}
@@ -186,7 +186,7 @@ export default function TrainerCard() {
           </motion.div>
         </div>
 
-        <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'rgba(50,50,50,0.5)', marginTop: '12px' }}>
+        <div style={{ fontFamily: 'var(--font-pixel)', fontSize: 7, color: 'rgba(255, 255, 255, 1)', marginTop: '12px' }}>
           ( Click card to flip )
         </div>
       </div>
