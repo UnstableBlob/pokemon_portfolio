@@ -449,21 +449,6 @@ body {
   animation: irisClose 0.2s ease-in forwards, irisOpen 0.2s ease-out 0.2s forwards;
 }
 
-/* ─── FLASH ─── */
-.flash-overlay {
-  position: fixed;
-  inset: 0;
-  background: white;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
-
-.flash-overlay.active {
-  opacity: 1;
-  transition: none;
-}
 
 /* ─── TRAINER CARD (GBA ACCURATE ASPECT RATIO) ─── */
 .trainer-screen-wrapper {
@@ -795,7 +780,7 @@ body {
 .list-slot-gba {
   width: 98%;
   height: clamp(30px, 18.5%, 60px);
-  background: linear-gradient(to bottom, #405881 35%, #60a8d8 35%);
+  background: rgba(89, 162, 207, 0.95);
   border: 1.5px solid #283848;
   display: flex;
   align-items: center;

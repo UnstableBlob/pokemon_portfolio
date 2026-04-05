@@ -10,7 +10,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         {children}
-        <div className="flash-overlay" id="flash-overlay"></div>
       </body>
     </html>
   );

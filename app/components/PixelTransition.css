@@ -1,0 +1,25 @@
+.pixel-transition-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pixel-transition-content {
+  width: 100%;
+  height: 100%;
+}
+
+.pixel-transition-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.pixel-transition-pixel {
+  position: absolute;
+  image-rendering: auto; /* just solid color divs */
+}

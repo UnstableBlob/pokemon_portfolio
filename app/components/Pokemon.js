@@ -59,14 +59,9 @@ export default function Pokemon({ onClose }) {
                 >MOVES</button>
               </div>
 
-              <AnimatePresence mode="wait">
+              <div>
                 {tab === 'info' && (
-                  <motion.div
-                    key="info"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
+                  <div key="info">
                     <div className="project-info" style={{ color: '#303030' }}>
                       <div style={{ marginBottom: 4, fontSize: 11, fontWeight: 'bold' }}>{selected.species}</div>
                       <div style={{ marginBottom: 10 }}>
@@ -75,10 +70,9 @@ export default function Pokemon({ onClose }) {
                       </div>
 
                       <div className="hp-bar-track" style={{ height: 6, marginBottom: 10 }}>
-                        <motion.div
+                        <div
                           className={`hp-bar-fill ${getHpClass(selected.hp.current, selected.hp.max)}`}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(selected.hp.current / selected.hp.max) * 100}%` }}
+                          style={{ width: `${(selected.hp.current / selected.hp.max) * 100}%` }}
                         />
                       </div>
 
@@ -100,11 +94,11 @@ export default function Pokemon({ onClose }) {
 
                       <div style={{ marginTop: 10, fontSize: 6, color: '#686868' }}>OT: {selected.ot} ID: {selected.idNo}</div>
                     </div>
-                  </motion.div>
+                  </div>
                 )}
 
                 {tab === 'moves' && (
-                  <motion.div key="moves">
+                  <div key="moves">
                     <div style={{ color: '#303030', fontSize: 9 }}>
                       {selected.moves.map((move, i) => (
                         <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #eee' }}>
@@ -113,9 +107,9 @@ export default function Pokemon({ onClose }) {
                         </div>
                       ))}
                     </div>
-                  </motion.div>
+                  </div>
                 )}
-              </AnimatePresence>
+              </div>
             </div>
           </div>
 
@@ -140,12 +134,8 @@ export default function Pokemon({ onClose }) {
           {/* Main Slot (Project 1) */}
           <div className="party-main-slot-container">
             {projects[0] && (
-              <motion.div
+              <div
                 className="party-slot-gba main-slot-gba"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => handleSelect(projects[0])}
               >
                 <div style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}>
@@ -163,12 +153,10 @@ export default function Pokemon({ onClose }) {
                     <div className="hp-container-gba">
                       <span className="hp-label-gba">HP</span>
                       <div className="hp-bar-gba">
-                        <motion.div
+                        <div
                           className="hp-fill-gba"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(projects[0].hp.current / projects[0].hp.max) * 100}%` }}
-                          transition={{ duration: 0.8, delay: 0.3 }}
                           style={{
+                            width: `${(projects[0].hp.current / projects[0].hp.max) * 100}%`,
                             background: (projects[0].hp.current / projects[0].hp.max) > 0.5 ? '#40c868' : (projects[0].hp.current / projects[0].hp.max) > 0.2 ? '#f8b050' : '#f85838',
                           }}
                         />
@@ -179,21 +167,16 @@ export default function Pokemon({ onClose }) {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
           </div>
 
           {/* List Slots (Projects 2-6) */}
           <div className="party-list-container">
             {projects.slice(1, 6).map((proj, i) => (
-              <motion.div
+              <div
                 key={i}
                 className="party-slot-gba list-slot-gba"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * (i + 1) }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => handleSelect(proj)}
               >
                 <div className="slot-icon-gba" style={{ fontSize: 24 }}>
@@ -206,12 +189,10 @@ export default function Pokemon({ onClose }) {
                     <div className="hp-container-gba" style={{ width: '55%' }}>
                       <span className="hp-label-gba" style={{ fontSize: 5 }}>HP</span>
                       <div className="hp-bar-gba">
-                        <motion.div
+                        <div
                           className="hp-fill-gba"
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(proj.hp.current / proj.hp.max) * 100}%` }}
-                          transition={{ duration: 0.8, delay: 0.5 + (i * 0.1) }}
                           style={{
+                            width: `${(proj.hp.current / proj.hp.max) * 100}%`,
                             background: (proj.hp.current / proj.hp.max) > 0.5 ? '#40c868' : (proj.hp.current / proj.hp.max) > 0.2 ? '#f8b050' : '#f85838',
                           }}
                         />
@@ -222,7 +203,7 @@ export default function Pokemon({ onClose }) {
                 <div style={{ position: 'absolute', right: 12, bottom: 4, fontSize: 7, color: 'white' }}>
                   {proj.hp.current}/{proj.hp.max}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

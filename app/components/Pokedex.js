@@ -112,11 +112,8 @@ export default function Pokedex() {
 
             <ul className="pokedex-list">
               {skills.map((skill, index) => (
-                <motion.li
+                <li
                   key={skill.id}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.03 }}
                   className="pokedex-entry"
                   onClick={() => handleSelect(skill)}
                 >
@@ -145,7 +142,7 @@ export default function Pokedex() {
                       )}
                     </div>
                   </div>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>

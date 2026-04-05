@@ -9,6 +9,8 @@ import Bag from './components/Bag';
 import TrainerCard from './components/TrainerCard';
 import Save from './components/Save';
 import Options from './components/Options';
+import PixelTransition from './components/PixelTransition';
+
 
 const menuItems = [
   { key: 'pokedex', label: 'SKILLS', icon: '📖' },
@@ -224,18 +226,9 @@ export default function Home() {
               </button>
             )}
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSection || 'empty'}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2 }}
-                style={{ height: '100%' }}
-              >
-                {renderSection()}
-              </motion.div>
-            </AnimatePresence>
+            <PixelTransition activeSection={activeSection}>
+              {renderSection()}
+            </PixelTransition>
           </div>
         </div>
       </div>
