@@ -139,12 +139,7 @@ export default function Home() {
           textAlign: 'center',
           padding: 40,
         }}>
-          <div style={{ fontSize: 48, marginBottom: 20 }}>🎮</div>
-          <div>Select an option from<br />the menu to begin.</div>
-          <div style={{ fontSize: 7, marginTop: 20, color: 'var(--fr-gray)' }}>
-            Use ↑↓ arrows + Enter<br />
-            or click a menu item
-          </div>
+
         </div>
       );
     }
@@ -152,12 +147,11 @@ export default function Home() {
 
   return (
     <div className="gba-wrapper">
-      <div className="gba-screen">
-        <div className={`portfolio-shell ${mobileView === 'menu' ? 'menu-open' : 'content-open'}`}>
-          {/* World backdrop */}
+      <div className={`gba-screen ${mobileView === 'menu' ? 'menu-open' : 'content-open'}`}>
+        {/* Left Side: Navigation Container */}
+        <div className="nav-container">
           <div className="world-backdrop scanlines" />
 
-          {/* Menu panel */}
           <div className="menu-panel">
             <motion.div
               className="menu-box fr-box fr-box-float"
@@ -166,7 +160,6 @@ export default function Home() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {menuItems.map((item, idx) => {
-                // Show cursor on hovered item (if hovering), otherwise on the active section's item
                 const isActive = hoveredMenu !== null ? hoveredMenu === idx : activeMenu === idx;
                 return (
                   <motion.div
@@ -194,8 +187,9 @@ export default function Home() {
               transition={{ delay: 0.5 }}
               style={{
                 fontFamily: 'var(--font-pixel)',
-                fontSize: 7,
-                color: 'rgba(255,255,255,0.7)',
+                fontSize: 10,
+                color: 'rgba(255, 255, 255, 1)',
+                textShadow: '1px 1px 1px #000',
                 textAlign: 'center',
                 marginTop: 20,
                 lineHeight: 2,
@@ -205,8 +199,10 @@ export default function Home() {
               ESC BACK
             </motion.div>
           </div>
+        </div>
 
-          {/* Content panel */}
+        {/* Right Side: Content Container */}
+        <div className="content-container content-container-float">
           <div className="content-panel" ref={contentRef}>
             {/* Mobile back button — shown only on mobile (CSS handles display) */}
             {activeSection && (

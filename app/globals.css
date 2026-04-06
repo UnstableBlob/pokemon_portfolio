@@ -79,11 +79,10 @@ body {
   margin: 0;
   padding: 0;
   background: var(--fr-navy);
-  background-image:
-    linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1)),
-    linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.1));
-  background-size: 40px 40px;
-  background-position: 0 0, 20px 20px;
+  background-image: url('/pokemon_portfolio/sprites/bghigh.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   font-family: var(--font-pixel);
   color: var(--fr-black);
   image-rendering: pixelated;
@@ -103,18 +102,11 @@ body {
 }
 
 .gba-screen {
-  width: 100%;
-  max-width: 960px;
-  /* Scales up to 960x640 (3:2) */
-  aspect-ratio: 3 / 2;
-  position: relative;
-  background: var(--fr-black);
-  border: 4px solid #101010;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-  /* Crop the content */
   display: flex;
+  align-items: stretch;
+  position: relative;
+  /* Removed overflow: hidden to prevent clipping of shadows */
+  /* box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); */
 }
 
 /* ─── FIRE RED BOX ─── */
@@ -128,6 +120,12 @@ body {
 
 .fr-box-float {
   box-shadow: inset 0 0 0 2px var(--fr-box-inner), var(--fr-box-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fr-box-float:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: inset 0 0 0 2px var(--fr-box-inner), 6px 6px 0 rgba(0, 0, 0, 0.4);
 }
 
 /* ─── TYPE BADGES ─── */
@@ -278,6 +276,16 @@ body {
 }
 
 /* ─── MENU ─── */
+.nav-container {
+  width: 280px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: transparent;
+}
+
 .menu-panel {
   padding: 24px;
   display: flex;
@@ -286,8 +294,7 @@ body {
   align-items: center;
   position: relative;
   z-index: 10;
-  min-width: 260px;
-  max-width: 300px;
+  height: 100%;
 }
 
 .menu-box {
@@ -341,14 +348,43 @@ body {
   }
 }
 
-/* ─── CONTENT PANEL ─── */
-.content-panel {
+/* ─── CONTENT CONTAINER & PANEL ─── */
+
+.content-container {
+  height: clamp(400px, 85vh, 400px);
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  position: relative;
   background: var(--fr-cream);
-  border-left: 4px solid var(--fr-box-border);
+  background-image: url('/pokemon_portfolio/sprites/landing.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  border: 4px solid var(--fr-box-border);
+}
+
+.content-container-float {
+  box-shadow: inset 0 0 0 2px var(--fr-box-inner), var(--fr-box-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content-container-float:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: inset 0 0 0 2px var(--fr-box-inner), 6px 6px 0 rgba(0, 0, 0, 0.4);
+}
+
+
+
+.content-panel {
+  flex: 1;
+  width: 100%;
+  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  flex: 1;
-  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ─── SCROLLBAR (themed) ─── */
@@ -364,14 +400,7 @@ body {
   background: var(--fr-box-border);
 }
 
-/* ─── PORTFOLIO SHELL ─── */
-.portfolio-shell {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  position: relative;
-}
+/* Redundant portfolio-shell removed */
 
 /* ─── SECTION TITLE ─── */
 .section-title {
@@ -1286,7 +1315,7 @@ body {
   justify-content: center;
   background: var(--fr-black);
   overflow: hidden;
-  container-type: size;
+  container-type: inline-size;
 }
 
 .bag-background {
@@ -1775,59 +1804,42 @@ body {
   }
 
   .gba-screen {
-    aspect-ratio: unset;
     width: 100%;
     max-width: 100%;
-    border-radius: 0;
-    border: none;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
     box-shadow: none;
-    flex-direction: column;
-    height: auto;
-    min-height: 100vh;
   }
 
-  .portfolio-shell {
-    flex-direction: column;
-    height: auto;
-    min-height: 100vh;
-  }
-
-  .menu-panel {
-    max-width: 100%;
-    min-width: auto;
+  .nav-container {
     width: 100%;
-    padding: 12px 16px;
-    justify-content: flex-start;
     order: 2;
-    /* menu goes BELOW content area */
+    border-right: none;
+    border-top: 4px solid var(--fr-box-border);
+    height: auto;
   }
 
-  .menu-box {
+  .content-container {
     width: 100%;
-  }
-
-  .menu-item {
-    font-size: 10px;
-    padding: 8px 14px;
+    height: auto;
+    aspect-ratio: auto;
+    min-height: 50vh;
+    order: 1;
+    border-bottom: 4px solid var(--fr-box-border);
   }
 
   .content-panel {
-    border-left: none;
-    border-bottom: 4px solid var(--fr-box-border);
-    flex: 1;
-    order: 1;
-    /* content goes ABOVE menu */
-    min-height: 50vh;
-    overflow-y: auto;
+    height: auto;
+    max-height: 70vh;
   }
 
   /* Show/hide logic for mobile navigation */
-  .portfolio-shell.menu-open .content-panel {
+  .gba-screen.menu-open .content-container {
     min-height: 30vh;
   }
 
-  .portfolio-shell.content-open .menu-panel {
-    /* Keep menu visible but compact on mobile content view */
+  .gba-screen.content-open .nav-container {
     padding: 8px 16px;
   }
 

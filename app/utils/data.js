@@ -36,7 +36,7 @@ export const projects = [
     status: 'OK',
     held: 'NEXT.JS + AZURE',
     ot: 'ATHARVA',
-    idNo: '2028',
+    idNo: '2025',
     moves: [
       { name: 'BRIDGE GAP', type: 'NORMAL', pp: 'Freelancers & SMEs', power: 90 },
       { name: 'AZURE DEPLOY', type: 'FLYING', pp: 'Cloud Host', power: 85 },
@@ -44,7 +44,8 @@ export const projects = [
     ],
     flavor: 'Developed a digital platform designed to bridge the gap between freelancers and Small & Medium Enterprises (SMEs). Enabled SMEs to boost their digital presence.',
     tech: ['Next.js', 'Postgres', 'Azure'],
-    impact: 'Empowers SMEs to digitize workflows and find niche talent.'
+    impact: 'Empowers SMEs to digitize workflows and find niche talent.',
+    repo: 'https://github.com/UnstableBlob/levelers'
   },
   {
     name: 'SEMANTIC STRUCTURE GENERATOR',
@@ -56,7 +57,7 @@ export const projects = [
     status: 'OK',
     held: 'REACT THREE FIBER + FLASK',
     ot: 'ATHARVA',
-    idNo: '2027',
+    idNo: '2026',
     moves: [
       { name: 'GEMINI ARCHITECT', type: 'PSYCHIC', pp: 'LLM Blueprint', power: 98 },
       { name: 'JSON SCHEMA', type: 'STEEL', pp: 'Structured Data', power: 92 },
@@ -64,7 +65,8 @@ export const projects = [
     ],
     flavor: 'A generative 3D environment that transforms semantic text prompts into complex composite structures. Leverages Gemini 2.5 Flash to architect detailed blueprints.',
     tech: ['R3F', 'Gemini API', 'Flask'],
-    impact: 'Automated 3D composition from plain English descriptors.'
+    impact: 'Automated 3D composition from plain English descriptors.',
+    repo: 'https://github.com/UnstableBlob/semantic_structure_generator'
   },
   {
     name: 'ECHO TERRAIN VISUALIZER',
@@ -84,7 +86,8 @@ export const projects = [
     ],
     flavor: 'A high-fidelity real-time 3D audio visualizer that transforms sound into a dynamic, shifting landscape. Maps frequency data to procedurally generated terrain.',
     tech: ['Three.js', 'Web Audio API', 'GLSL'],
-    impact: 'Unique terrain landscapes generated per audio track.'
+    impact: 'Unique terrain landscapes generated per audio track.',
+    repo: 'https://github.com/UnstableBlob/audio_visualizer'
   }
 ];
 

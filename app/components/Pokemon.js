@@ -39,7 +39,19 @@ export default function Pokemon({ onClose }) {
           <div style={{ padding: '4%', height: '75%' }}>
             <div className="fr-box" style={{ background: '#60a8d8', border: '3px solid #405881', color: 'white', marginBottom: 12 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 12 }}>{selected.name}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <span style={{ fontSize: 12 }}>{selected.name}</span>
+                  <a
+                    href={selected.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="nes-btn is-warning"
+                    onClick={(e) => { e.stopPropagation(); playSound('confirm'); }}
+                    style={{ fontSize: 10, padding: '2px 6px', marginTop: -2 }}
+                  >
+                    REPOSITORY
+                  </a>
+                </div>
                 <span style={{ fontSize: 8 }}>Lv. {selected.level}</span>
               </div>
             </div>
@@ -63,7 +75,9 @@ export default function Pokemon({ onClose }) {
                 {tab === 'info' && (
                   <div key="info">
                     <div className="project-info" style={{ color: '#303030' }}>
-                      <div style={{ marginBottom: 4, fontSize: 11, fontWeight: 'bold' }}>{selected.species}</div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                        <div style={{ fontSize: 11, fontWeight: 'bold' }}>{selected.species}</div>
+                      </div>
                       <div style={{ marginBottom: 10 }}>
                         <span className={`type-badge type-${selected.type}`} style={{ fontSize: 7, padding: '2px 5px' }}>{selected.type}</span>
                         {selected.type2 && <span className={`type-badge type-${selected.type2}`} style={{ fontSize: 7, padding: '2px 5px', marginLeft: 6 }}>{selected.type2}</span>}
@@ -77,7 +91,7 @@ export default function Pokemon({ onClose }) {
                       </div>
 
                       <p style={{ fontSize: 9, lineHeight: 1.5, marginBottom: 10 }}>{selected.flavor}</p>
-                      
+
                       <div style={{ marginBottom: 8 }}>
                         <div style={{ color: '#585858', fontSize: 7, marginBottom: 3, textTransform: 'uppercase' }}>TECH:</div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
@@ -117,9 +131,11 @@ export default function Pokemon({ onClose }) {
             <div className="party-dialog-gba">
               Check {selected.name}'s info?
             </div>
-            <button className="nes-btn is-error" onClick={handleBack} style={{ fontSize: 8, padding: '4px 10px' }}>
-              BACK
-            </button>
+            <div style={{ display: 'flex', gap: 10 }}>
+              <button className="nes-btn is-error" onClick={handleBack} style={{ fontSize: 8, padding: '4px 10px' }}>
+                BACK
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -139,14 +155,14 @@ export default function Pokemon({ onClose }) {
                 onClick={() => handleSelect(projects[0])}
               >
                 <div style={{ display: 'flex', alignItems: 'center', height: '100%', width: '100%' }}>
-                  <motion.div
+                  {/* <motion.div
                     className="slot-icon-gba"
                     style={{ fontSize: 48 }}
                     animate={{ y: [0, -4, 0] }}
                     transition={{ repeat: Infinity, duration: 1.5 }}
                   >
                     {typeIcons[projects[0].type] || '✨'}
-                  </motion.div>
+                  </motion.div> */}
                   <div className="slot-info-gba">
                     <div className="slot-name-gba" style={{ fontSize: 11, marginBottom: 6 }}>{projects[0].name}</div>
                     <div className="slot-meta-gba" style={{ fontSize: 9, marginBottom: 8 }}>Lv.{projects[0].level}</div>
