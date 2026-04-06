@@ -1,10 +1,10 @@
 1:"$Sreact.fragment"
 2:I[47257,["/pokemon_portfolio/_next/static/chunks/0dbhjjzl8qfwv.js"],"ClientPageRoot"]
-3:I[81694,["/pokemon_portfolio/_next/static/chunks/0dbhjjzl8qfwv.js","/pokemon_portfolio/_next/static/chunks/090cjp2m54k_6.js"],"default"]
+3:I[81694,["/pokemon_portfolio/_next/static/chunks/0dbhjjzl8qfwv.js","/pokemon_portfolio/_next/static/chunks/0oza8o3daxdkh.js"],"default"]
 6:I[97367,["/pokemon_portfolio/_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-:HL["/pokemon_portfolio/_next/static/chunks/0has70.tnmnra.css","style"]
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","link","0",{"rel":"stylesheet","href":"/pokemon_portfolio/_next/static/chunks/0has70.tnmnra.css","precedence":"next"}],["$","script","script-0",{"src":"/pokemon_portfolio/_next/static/chunks/090cjp2m54k_6.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"v4JSFL_FSgYoU8b215Hyq"}
+:HL["/pokemon_portfolio/_next/static/chunks/026mo27mj75rv.css","style"]
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","link","0",{"rel":"stylesheet","href":"/pokemon_portfolio/_next/static/chunks/026mo27mj75rv.css","precedence":"next"}],["$","script","script-0",{"src":"/pokemon_portfolio/_next/static/chunks/0oza8o3daxdkh.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"9bbsQxbnWnqmyAClCno-M"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
