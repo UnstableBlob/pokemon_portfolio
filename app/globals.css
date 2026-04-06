@@ -1835,16 +1835,56 @@ body {
   }
 
   /* Show/hide logic for mobile navigation */
+  .gba-screen.menu-open .nav-container {
+    display: flex;
+    flex: 1;
+  }
+
   .gba-screen.menu-open .content-container {
+    display: flex;
     min-height: 30vh;
+    order: 1;
   }
 
   .gba-screen.content-open .nav-container {
+    display: flex;
+    flex-direction: column;
     padding: 8px 16px;
+    height: auto;
+    flex: 1;
+  }
+
+  .gba-screen.content-open .content-container {
+    display: flex;
+    min-height: 0;
+    height: auto;
+    background-image: none;
+    background-color: var(--fr-black);
+    border: none;
+    border-bottom: 4px solid var(--fr-box-border);
+    border-radius: 0;
+  }
+
+  .gba-screen.content-open .content-panel {
+    max-height: none;
+    height: auto;
   }
 
   .back-btn-mobile {
     display: flex !important;
+    background: var(--fr-box-bg);
+    border: 3px solid var(--fr-box-border);
+    color: var(--fr-black);
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    padding: 10px 16px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    margin-bottom: 4px;
+    cursor: pointer;
+  }
+
+  .back-btn-mobile:active {
+    background: #e0e0d8;
   }
 
   .party-grid {
