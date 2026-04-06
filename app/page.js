@@ -22,7 +22,10 @@ const menuItems = [
   { key: 'exit', label: 'EXIT', icon: '🚪' },
 ];
 
+import BootLoader from './components/BootLoader';
+
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeMenu, setActiveMenu] = useState(0);
   const [hoveredMenu, setHoveredMenu] = useState(null); // separate hover tracking
   const [activeSection, setActiveSection] = useState(null);
@@ -146,7 +149,11 @@ export default function Home() {
   };
 
   return (
-    <div className="gba-wrapper">
+    <>
+      {isLoading && (
+        <BootLoader onComplete={() => setIsLoading(false)} />
+      )}
+      <div className="gba-wrapper" style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
       <div className={`gba-screen ${mobileView === 'menu' ? 'menu-open' : 'content-open'}`}>
         {/* Left Side: Navigation Container */}
         <div className="nav-container">
@@ -228,6 +235,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
